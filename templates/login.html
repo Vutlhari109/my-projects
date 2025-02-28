@@ -1,0 +1,18 @@
+<!-- filepath: /c:/Users/27795/OneDrive - University of South Africa/JS basics/templates/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form action="{{ url_for('login') }}" method="POST">
+        <p>Username: </p>
+        <p><input type="text" name="username" required/></p>
+        <p>Password: </p>
+        <p><input type="password" name="password" required/></p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</body>
+</html>

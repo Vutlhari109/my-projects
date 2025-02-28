@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='vp.jpg') }}">
+    <title>Varsity Applicants</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul img {
+            height: 70px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        nav ul li a:hover {
+            color: #f4a261;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #61c0a4;
+            text-align: center;
+            padding: 50px 20px;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        .hero .btn {
+            display: inline-block;
+            background-color: #f4a261;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .hero .btn:hover {
+            background-color: #e76f51;
+        }
+
+        /* Services Section */
+        #services {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: white;
+        }
+
+        .service {
+            display: inline-block;
+            width: 30%;
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .service h3 {
+            font-size: 22px;
+            color: #333;
+        }
+
+        .service p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Contact Section */
+        #contact {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #f8f9fa;
+        }
+
+        form {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        form button:hover {
+            background-color: #e76f51;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+    
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <img src="{{ url_for('static', filename='vp.jpg') }}" alt="Varsity Applicants Logo" height="70px">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Varsity Applicants <br> Website</h1>
+            <p>Click Apply to request application assistance</p><br>
+            <a href="{{ url_for('index') }}" class="btn">Apply</a>
+            <a href="{{ url_for('login') }}" class="btn">Log In</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We are a passionate team dedicated to assisting you with applications.</p>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="service">
+            <h3>Info</h3>
+            <p>We do applications online, making everything simple. No physical appointments.</p><br>
+        </div>
+        <div class="service"><br>
+            <h3>Service</h3><br>
+            <p>We apply for students at Universities, TVETs, and for Bursaries.</p><br>
+        </div>
+        <div class="service">
+            <h3>Charges</h3>
+            <p>We charge R40 per application, R300 for 20 applications, and R450 for 30 applications.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form action="#">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 | Varsity Applicants</p>
+    </footer>
+
+</body>
+</html>

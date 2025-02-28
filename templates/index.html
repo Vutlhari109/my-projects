@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="vp.jpg">
+    <title>Varsity Applicants</title>
+    
+  </head>
+  <body>
+    <form action="{{ url_for('register') }}" method="POST" enctype="multipart/form-data">
+      <style>
+
+      body {
+        
+        max-width: 400px;
+        margin-left: 130px;
+    }
+
+      </style>
+
+      <!-- Applicant's Details -->
+      <h3>Applicant's Details</h3>
+      <br>
+      <ul>
+        <li>This information is for the person requesting application assistance</li>
+        <li>This information is compulsory</li>
+      </ul>
+      <br>
+
+      <!-- Input First Name of client -->
+      <label for="fname">First name:</label>
+      <input type="text" id="fname" name="first_name" required><br>
+      
+
+      <!-- Input Second Name of client -->
+      <label for="sname">Second name:</label>
+      <input type="text" id="sname" name="second_name" placeholder="(Optional)"><br>
+
+      <!-- Input Surname of client -->
+      <label for="surname">Surname:</label>
+      <input type="text" id="surname" name="surname" required><br>
+
+      <!-- Input Gender -->
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="Please Select">Please Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select><br>
+
+      <!-- Input ID Number -->
+      <label for="idNumber">ID number:</label>
+      <input type="text" id="idNumber" name="idNumber" minlength="13" maxlength="13" required><br>
+      
+
+      <!-- Input Birth Date -->
+      <label for="bday">Birth date:</label>
+      <input type="date" id="bday" name="bday" required><br>
+
+      <!-- Input Cellphone Number -->
+      <label for="phone">Cellphone number:</label>
+      <input type="tel" id="phone" name="phone" minlength="10" maxlength="10" placeholder="0712345678" required><br>
+
+      <!-- Input Email Address -->
+      <label for="email">Email address:</label>
+      <input type="email" id="email" name="email" required><br>
+
+      <!-- Input Physical Address -->
+      <label for="address">Physical address:</label>
+      <input type="text" id="address" name="address" placeholder="e.g. 123 Avenue Street" required><br>
+
+      <!-- Input Postal Code -->
+      <label for="postalCode">Postal Code:</label>
+      <input type="text" id="postalCode" name="postalCode" minlength="4" maxlength="4" required><br>
+
+      <!-- Input High School Name -->
+      <label for="school">High School name:</label>
+      <input type="text" id="school" name="school" placeholder="e.g. Akani High School" required><br>
+
+      <!-- Input Title -->
+      <label for="applicantTitle" name="applicantTitle">Title:</label>
+      <label for="Mr">Mr</label>
+      <input type="radio" id="Mr" value="Mr">
+      <label for="Mrs">Mrs</label>
+      <input type="radio" id="Mrs" value="Mrs">
+      <label for="Miss">Miss</label>
+      <input type="radio" id="Miss" value="Miss">
+      <label for="Dr">Dr</label>
+      <input type="radio" id="Dr" value="Dr"><br>
+
+      <!-- Input Province -->
+      <label for="province">Province:</label>
+      <select id="province" name="province" required>
+        <option value="Please Select">Please Select</option>
+        <option value="Gauteng">Gauteng</option>
+        <option value="Limpopo">Limpopo</option>
+        <option value="Kwa-Zulu Natal">Kwa-Zulu Natal</option>
+        <option value="Eastern Cape">Eastern Cape</option>
+        <option value="Mpumalanga">Mpumalanga</option>
+        <option value="Western Cape">Western Cape</option>
+        <option value="Free State">Free State</option>
+        <option value="North West">North West</option>
+        <option value="Northern Cape">Northern Cape</option>
+      </select><br>
+
+      <!-- Input Home Language -->
+      <label for="homeLanguage">Home Language:</label>
+      <select id="homeLanguage" name="homeLanguage" required>
+        <option value="Please Select">Please Select</option>
+        <option value="English">English</option>
+        <option value="Afrikaans">Afrikaans</option>
+        <option value="Xitsonga">Xitsonga</option>
+        <option value="Isizulu">Isizulu</option>
+        <option value="Isixhosa">Isixhosa</option>
+        <option value="Siswati">Siswati</option>
+        <option value="Isindebele">Isindebele</option>
+        <option value="Sepedi">Sepedi</option>
+        <option value="Sesotho">Sesotho</option>
+        <option value="Setswana">Setswana</option>
+        <option value="Tshivhenda">Tshivhenda</option>
+        <option value="Sign Language">Sign Language</option>
+      </select><br>
+
+      <!-- Input Matric Year -->
+      <label for="matricYear">Matric year:</label>
+      <input type="" id="matricYear" name="matricYear" placeholder="e.g. 2025" required><br>
+
+      <!-- Input Upgrading -->
+      <label for="upgrading">Upgrading:</label>
+      <select id="upgrading" name="upgrading" required>
+        <option value="Please Select">Please Select</option>
+        <option value="First time in matric">First time in matric</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select><br>
+
+      <!-- Input NSFAS Bursary Interest -->
+      <label for="nsfasBursary">Do you want to apply for NSFAS bursary?</label>
+      <select id="nsfasBursary" name="nsfasBursary" required>
+        <option value="YES">YES</option>
+        <option value="NO">NO</option>
+      </select><br>
+
+  
+
+      <br>
+
+      <h3>Next of Kin Details</h3>
+      <br>
+      <ul>
+        <li>Next of kin can be anyone next to you,parent or sibling relative or neighbour</li>
+        <li> This information is compulsory</li>
+      </ul>
+      <br>
+
+      <!-- Next of Kin First Name -->
+      <label for="nextName">Next of kin First name:</label>
+      <input type="text" id="nextName" name="nextName" required><br>
+
+      <!-- Next of Kin Second Name -->
+      <label for="nextsName">Next of kin Second name:</label>
+      <input type="text" id="nextsName" name="nextsName" placeholder="(Optional)"><br>
+
+      <!-- Next of Kin Surname -->
+      <label for="nextsurName">Next of kin Surname:</label>
+      <input type="text" id="nextsurName" name="nextsurName" required><br>
+
+      <!-- Next of Kin Title -->
+      <label for="nextTitle" class="nextTitle"  name="nextTitle">Next of kin Title:</label>
+      <label for="Mr">Mr</label>
+      <input type="radio" id="Mr"  value="Mr">
+      <label for="Mrs">Mrs</label>
+      <input type="radio" id="Mrs"value="Mr">
+      <label for="Miss">Miss</label>
+      <input type="radio" id="Miss" value="Miss">
+      <label for="Dr">Dr</label>
+      <input type="radio" id="Dr"  value="Dr"><br>
+
+      <!-- Next of Kin Gender -->
+      <label for="nextGender">Next of kin Gender:</label>
+      <select id="nextGender" name="nextGender" required>
+        <option value="Please Select">Please Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select><br>
+
+      <!-- Next of Kin ID Number -->
+      <label for="nextIdNumber">Next of kin ID number:</label>
+      <input type="text" id="nextIdNumber" name="nextIdNumber" minlength="13" maxlength="13" required><br>
+
+      <!-- Next of Kin Birth Date -->
+      <label for="nextBday">Next of kin birth date:</label>
+      <input type="date" id="nextBday" name="nextBday" required><br>
+
+      <!-- Next of Kin Cellphone Number -->
+      <label for="nextPhone">Next of kin Cellphone number:</label>
+      <input type="tel" id="nextPhone" name="nextPhone" minlength="10" maxlength="10" placeholder="0712345678" required><br>
+    
+      <!-- Next of Kin Email Address -->
+      <label for="nextEmail">Next of kin Email address:</label>
+      <input type="email" id="nextEmail" name="nextEmail" placeholder="(Optional)"><br>
+      
+      <!--Kin Physical Address -->
+      <label for="nextAddress">Next of kin Physical address:</label>
+      <input type="text" id="nextAddress" name="nextAddress" placeholder="123 Avenue Street" required><br>
+
+      <!-- Next of Kin Postal Code -->
+      <label for="nextPostalCode">Next of kin Postal Code:</label>
+      <input type="text" id="nextPostalCode" name="nextPostalCode" minlength="4" maxlength="4" required><br>
+
+      <br>
+<!-- Choose Institutions you are interested in -->
+
+<h2>Select Institutions</h2>
+
+<h3>Universities</h3>
+<div id="universities" name="institutions">
+    <label><input type="checkbox" class="institution" value="University of Limpopo"> University of Limpopo</label><br>
+    <label><input type="checkbox" class="institution" value="Tshwane University of Technology"> Tshwane University of Technology</label><br>
+    <label><input type="checkbox" class="institution" value="University of Cape Town"> University of Cape Town</label><br>
+    <label><input type="checkbox" class="institution" value="Stellenbosch University"> Stellenbosch University</label><br>
+    <label><input type="checkbox" class="institution" value="University of the Witwatersrand"> University of the Witwatersrand</label><br>
+    <label><input type="checkbox" class="institution" value="University of Pretoria"> University of Pretoria</label><br>
+    <label><input type="checkbox" class="institution" value="University of South Africa"> University of South Africa</label><br>
+    <label><input type="checkbox" class="institution" value="University of the Western Cape"> University of the Western Cape</label><br>
+    <label><input type="checkbox" class="institution" value="University of Johannesburg"> University of Johannesburg</label><br>
+    <label><input type="checkbox" class="institution" value="North West University"> North West University</label><br>
+    <label><input type="checkbox" class="institution" value="University of Free State"> University of Free State</label><br>
+    <label><input type="checkbox" class="institution" value="Durban University of Technology"> Durban University of Technology</label><br>
+    <label><input type="checkbox" class="institution" value="Nelson Mandela University"> Nelson Mandela University</label><br>
+    <label><input type="checkbox" class="institution" value="Vaal University of Technology"> Vaal University of Technology</label><br>
+    <label><input type="checkbox" class="institution" value="University of Fort Hare"> University of Fort Hare</label><br>
+    <label><input type="checkbox" class="institution" value="University of Zululand"> University of Zululand</label><br>
+    <label><input type="checkbox" class="institution" value="University of Venda"> University of Venda</label><br>
+    <label><input type="checkbox" class="institution" value="Central University of Technology"> Central University of Technology</label><br>
+    <label><input type="checkbox" class="institution" value="Sol Plaatje University"> Sol Plaatje University</label><br>
+    <label><input type="checkbox" class="institution" value="Rhodes University"> Rhodes University</label><br>
+    <label><input type="checkbox" class="institution" value="Cape Peninsula University of Technology"> Cape Peninsula University of Technology</label><br>
+    <label><input type="checkbox" class="institution" value="Walter Sisulu University"> Walter Sisulu University</label><br>
+    <label><input type="checkbox" class="institution" value="Mangosuthu University of Technology"> Mangosuthu University of Technology</label><br>
+    <label><input type="checkbox" class="institution" value="University of KwaZulu-Natal"> University of KwaZulu-Natal</label><br>
+    <label><input type="checkbox" class="institution" value="University of Mpumalanga"> University of Mpumalanga</label><br>
+    <label><input type="checkbox" class="institution" value="Sefako Makgatho Health Sciences University"> Sefako Makgatho Health Sciences University</label><br>
+    <label><input type="checkbox" class="institution" value="University of Eastern Cape"> University of Eastern Cape</label><br>
+    <label><input type="checkbox" class="institution" value="University of North West"> University of North West</label><br>
+    <label><input type="checkbox" class="institution" value="University of Limpopo"> University of Limpopo</label><br>
+</div>
+
+<h3>TVET Colleges</h3>
+<div id="tvets" name="institutions"> 
+    <label><input type="checkbox" class="institution" value="Boland TVET College"> Boland TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Buffalo City TVET College"> Buffalo City TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Capricorn TVET College"> Capricorn TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Central Johannesburg TVET College"> Central Johannesburg TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Coastal TVET College"> Coastal TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="False Bay TVET College"> False Bay TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Flavius Mareka TVET College"> Flavius Mareka TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Gert Sibande TVET College"> Gert Sibande TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Goldfields TVET College"> Goldfields TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Ikhala TVET College"> Ikhala TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Ingwe TVET College"> Ingwe TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="King Hintsa TVET College"> King Hintsa TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="King Sabata Dalindyebo TVET College"> King Sabata Dalindyebo TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Letaba TVET College"> Letaba TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Lovedale TVET College"> Lovedale TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Majuba TVET College"> Majuba TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Maluti TVET College"> Maluti TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Mopani South East TVET College"> Mopani South East TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Motheo TVET College"> Motheo TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Mnambithi TVET College"> Mnambithi TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Northern Cape Rural TVET College"> Northern Cape Rural TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Northern Cape Urban TVET College"> Northern Cape Urban TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Orbit TVET College"> Orbit TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Port Elizabeth TVET College"> Port Elizabeth TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Sekhukhune TVET College"> Sekhukhune TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="South Cape TVET College"> South Cape TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="South West Gauteng TVET College"> South West Gauteng TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Taletso TVET College"> Taletso TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Thekwini TVET College"> Thekwini TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Tshwane North TVET College"> Tshwane North TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Tshwane South TVET College"> Tshwane South TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Umfolozi TVET College"> Umfolozi TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Umgungundlovu TVET College"> Umgungundlovu TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Vhembe TVET College"> Vhembe TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Vuselela TVET College"> Vuselela TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Waterberg TVET College"> Waterberg TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="West Coast TVET College"> West Coast TVET College</label><br>
+    <label><input type="checkbox" class="institution" value="Western TVET College"> Western TVET College</label><br>
+</div>
+<br>
+
+<h4>Charges and discounts by Varsity Applicants</h4>
+<ul>
+  <li>R40 per Applications</li>
+  <li>R300 for 20 Applications</li>
+  <li>R400 for 30 applications</li>
+  <li>R500 for 40 Applications</li>
+  <li>Applications can be mixture of Tvets, bursaries and Universities</li>
+</ul>
+<br>
+       
+<h4>Required documents</h4>
+<br>
+<label for="file">ID Document <br> of applicant:</label>
+<input type="file" id="Id_document_applicant" accept=".pdf,.jpg,.png" name="uploaded_document" required><br>
+<br>
+
+<label for="file">Grade 11/12 <br>Final Results: </label>
+<input type="file" id="results_documents" accept=".pdf,.jpg,.png" name="uploaded_document" required><br>
+<br>
+
+
+<h4>Capitec Bank <br>
+Acc num: 2229073407<br>
+@Varsity Applicants<br>
+Acc Holder: Mr V Mathebula<br>
+Upload the  Proof of Payment </h4>
+<br>
+
+
+<label for="file">Proof of Payment </label>
+<input type="file" id="proof_of_payment" accept=".pdf,.jpg,.png"name="uploaded_document" required><br>
+<br>
+
+<h4>Optional documents</h4>
+<ul>
+  <li>Upload these documents only if applying at TVET Colleges</li>
+</ul>
+<br>
+
+<label for="file">ID Document <br>of Next of Kin:</label>
+<input type="file" id="Id_document_parent" accept=".pdf,.jpg,.png"name="uploaded_document"><br>
+<br>
+
+<label for="file">Proof of Residence <br> or Bank Statement:</label>
+<input type="file" id="proof_of_res" accept=".pdf,.jpg,.png" name="uploaded_document"><br>
+<br>
+<br>
+<br>
+
+      <label for="username">Username (Email):</label>
+      <input type="email" id="username" name="username" required><br>
+
+      <!-- Password Field -->
+     <label for="password">Password:</label><br>
+      <input type="password" id="pass_word" name="password"  required><br>
+
+       <!-- Confirm Password Field -->
+       <label for="confirmPassword">Confirm Password:</label><br>
+       <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+
+    <br>
+    <label for="whatsapp_number">WhatsApp Number:</label>
+    <input type="text" id="app_number" name="whatsapp_number" required><br><br>
+
+    <script src="static\app.js"></script>
+    <!-- Submit Button -->
+<input type="submit" id="submit" name="submit" href="#">
+
+    </form>
+      
+
+    
+  
+  </body>
+</html>
