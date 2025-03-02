@@ -79,15 +79,14 @@
       <input type="text" id="school" name="school" placeholder="e.g. Akani High School" required><br>
 
       <!-- Input Title -->
-      <label for="applicantTitle" name="applicantTitle">Title:</label>
-      <label for="Mr">Mr</label>
-      <input type="radio" id="Mr" value="Mr">
-      <label for="Mrs">Mrs</label>
-      <input type="radio" id="Mrs" value="Mrs">
-      <label for="Miss">Miss</label>
-      <input type="radio" id="Miss" value="Miss">
-      <label for="Dr">Dr</label>
-      <input type="radio" id="Dr" value="Dr"><br>
+      <label for="applicantTitle" >Title:</label>
+      <select id="applicantTitle" name="applicantTitle" required>
+        <option value="Please Select">Please Select</option>
+        <option value="Mr">Mr</option>
+        <option value="Miss">Miss</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Dr">Dr</option>
+      </select><br>
 
       <!-- Input Province -->
       <label for="province">Province:</label>
@@ -130,9 +129,9 @@
       <label for="upgrading">Upgrading:</label>
       <select id="upgrading" name="upgrading" required>
         <option value="Please Select">Please Select</option>
-        <option value="First time in matric">First time in matric</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
+        <option value="First time">First time </option>
+        <option value="YES">YES</option>
+        <option value="NO">NO</option>
       </select><br>
 
       <!-- Input NSFAS Bursary Interest -->
@@ -167,15 +166,17 @@
       <input type="text" id="nextsurName" name="nextsurName" required><br>
 
       <!-- Next of Kin Title -->
-      <label for="nextTitle" class="nextTitle"  name="nextTitle">Next of kin Title:</label>
-      <label for="Mr">Mr</label>
-      <input type="radio" id="Mr"  value="Mr">
-      <label for="Mrs">Mrs</label>
-      <input type="radio" id="Mrs"value="Mr">
-      <label for="Miss">Miss</label>
-      <input type="radio" id="Miss" value="Miss">
-      <label for="Dr">Dr</label>
-      <input type="radio" id="Dr"  value="Dr"><br>
+      <label for="nesTitle">Next of kin Title:</label>
+      <select id="nesTitle" name="nesTitle" required>
+        <option value="Please Select">Please Select</option>
+        <option value="Mr">Mr</option>
+        <option value="Miss">Miss</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Dr">Dr</option>
+      </select><br>
+
+        
+      
 
       <!-- Next of Kin Gender -->
       <label for="nextGender">Next of kin Gender:</label>
@@ -212,81 +213,81 @@
       <br>
 <!-- Choose Institutions you are interested in -->
 
+
 <h2>Select Institutions</h2>
 
 <h3>Universities</h3>
-<div id="universities" name="institutions">
-    <label><input type="checkbox" class="institution" value="University of Limpopo"> University of Limpopo</label><br>
-    <label><input type="checkbox" class="institution" value="Tshwane University of Technology"> Tshwane University of Technology</label><br>
-    <label><input type="checkbox" class="institution" value="University of Cape Town"> University of Cape Town</label><br>
-    <label><input type="checkbox" class="institution" value="Stellenbosch University"> Stellenbosch University</label><br>
-    <label><input type="checkbox" class="institution" value="University of the Witwatersrand"> University of the Witwatersrand</label><br>
-    <label><input type="checkbox" class="institution" value="University of Pretoria"> University of Pretoria</label><br>
-    <label><input type="checkbox" class="institution" value="University of South Africa"> University of South Africa</label><br>
-    <label><input type="checkbox" class="institution" value="University of the Western Cape"> University of the Western Cape</label><br>
-    <label><input type="checkbox" class="institution" value="University of Johannesburg"> University of Johannesburg</label><br>
-    <label><input type="checkbox" class="institution" value="North West University"> North West University</label><br>
-    <label><input type="checkbox" class="institution" value="University of Free State"> University of Free State</label><br>
-    <label><input type="checkbox" class="institution" value="Durban University of Technology"> Durban University of Technology</label><br>
-    <label><input type="checkbox" class="institution" value="Nelson Mandela University"> Nelson Mandela University</label><br>
-    <label><input type="checkbox" class="institution" value="Vaal University of Technology"> Vaal University of Technology</label><br>
-    <label><input type="checkbox" class="institution" value="University of Fort Hare"> University of Fort Hare</label><br>
-    <label><input type="checkbox" class="institution" value="University of Zululand"> University of Zululand</label><br>
-    <label><input type="checkbox" class="institution" value="University of Venda"> University of Venda</label><br>
-    <label><input type="checkbox" class="institution" value="Central University of Technology"> Central University of Technology</label><br>
-    <label><input type="checkbox" class="institution" value="Sol Plaatje University"> Sol Plaatje University</label><br>
-    <label><input type="checkbox" class="institution" value="Rhodes University"> Rhodes University</label><br>
-    <label><input type="checkbox" class="institution" value="Cape Peninsula University of Technology"> Cape Peninsula University of Technology</label><br>
-    <label><input type="checkbox" class="institution" value="Walter Sisulu University"> Walter Sisulu University</label><br>
-    <label><input type="checkbox" class="institution" value="Mangosuthu University of Technology"> Mangosuthu University of Technology</label><br>
-    <label><input type="checkbox" class="institution" value="University of KwaZulu-Natal"> University of KwaZulu-Natal</label><br>
-    <label><input type="checkbox" class="institution" value="University of Mpumalanga"> University of Mpumalanga</label><br>
-    <label><input type="checkbox" class="institution" value="Sefako Makgatho Health Sciences University"> Sefako Makgatho Health Sciences University</label><br>
-    <label><input type="checkbox" class="institution" value="University of Eastern Cape"> University of Eastern Cape</label><br>
-    <label><input type="checkbox" class="institution" value="University of North West"> University of North West</label><br>
-    <label><input type="checkbox" class="institution" value="University of Limpopo"> University of Limpopo</label><br>
+<div id="universities">
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Limpopo"> University of Limpopo</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Tshwane University of Technology"> Tshwane University of Technology</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Cape Town"> University of Cape Town</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Stellenbosch University"> Stellenbosch University</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of the Witwatersrand"> University of the Witwatersrand</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Pretoria"> University of Pretoria</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of South Africa"> University of South Africa</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of the Western Cape"> University of the Western Cape</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Johannesburg"> University of Johannesburg</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="North West University"> North West University</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Free State"> University of Free State</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Durban University of Technology"> Durban University of Technology</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Nelson Mandela University"> Nelson Mandela University</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Vaal University of Technology"> Vaal University of Technology</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Fort Hare"> University of Fort Hare</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Zululand"> University of Zululand</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Venda"> University of Venda</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Central University of Technology"> Central University of Technology</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Sol Plaatje University"> Sol Plaatje University</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Rhodes University"> Rhodes University</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Cape Peninsula University of Technology"> Cape Peninsula University of Technology</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Walter Sisulu University"> Walter Sisulu University</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Mangosuthu University of Technology"> Mangosuthu University of Technology</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of KwaZulu-Natal"> University of KwaZulu-Natal</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Mpumalanga"> University of Mpumalanga</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Sefako Makgatho Health Sciences University"> Sefako Makgatho Health Sciences University</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Eastern Cape"> University of Eastern Cape</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of North West"> University of North West</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="University of Limpopo"> University of Limpopo</label><br>
 </div>
 
 <h3>TVET Colleges</h3>
-<div id="tvets" name="institutions"> 
-    <label><input type="checkbox" class="institution" value="Boland TVET College"> Boland TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Buffalo City TVET College"> Buffalo City TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Capricorn TVET College"> Capricorn TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Central Johannesburg TVET College"> Central Johannesburg TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Coastal TVET College"> Coastal TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="False Bay TVET College"> False Bay TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Flavius Mareka TVET College"> Flavius Mareka TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Gert Sibande TVET College"> Gert Sibande TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Goldfields TVET College"> Goldfields TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Ikhala TVET College"> Ikhala TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Ingwe TVET College"> Ingwe TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="King Hintsa TVET College"> King Hintsa TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="King Sabata Dalindyebo TVET College"> King Sabata Dalindyebo TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Letaba TVET College"> Letaba TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Lovedale TVET College"> Lovedale TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Majuba TVET College"> Majuba TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Maluti TVET College"> Maluti TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Mopani South East TVET College"> Mopani South East TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Motheo TVET College"> Motheo TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Mnambithi TVET College"> Mnambithi TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Northern Cape Rural TVET College"> Northern Cape Rural TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Northern Cape Urban TVET College"> Northern Cape Urban TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Orbit TVET College"> Orbit TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Port Elizabeth TVET College"> Port Elizabeth TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Sekhukhune TVET College"> Sekhukhune TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="South Cape TVET College"> South Cape TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="South West Gauteng TVET College"> South West Gauteng TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Taletso TVET College"> Taletso TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Thekwini TVET College"> Thekwini TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Tshwane North TVET College"> Tshwane North TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Tshwane South TVET College"> Tshwane South TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Umfolozi TVET College"> Umfolozi TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Umgungundlovu TVET College"> Umgungundlovu TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Vhembe TVET College"> Vhembe TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Vuselela TVET College"> Vuselela TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Waterberg TVET College"> Waterberg TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="West Coast TVET College"> West Coast TVET College</label><br>
-    <label><input type="checkbox" class="institution" value="Western TVET College"> Western TVET College</label><br>
+<div id="tvets">
+    <label><input type="checkbox" name="institutions" class="institution" value="Boland TVET College"> Boland TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Buffalo City TVET College"> Buffalo City TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Capricorn TVET College"> Capricorn TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Central Johannesburg TVET College"> Central Johannesburg TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Coastal TVET College"> Coastal TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="False Bay TVET College"> False Bay TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Flavius Mareka TVET College"> Flavius Mareka TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Gert Sibande TVET College"> Gert Sibande TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Goldfields TVET College"> Goldfields TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Ikhala TVET College"> Ikhala TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Ingwe TVET College"> Ingwe TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="King Hintsa TVET College"> King Hintsa TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Letaba TVET College"> Letaba TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Lovedale TVET College"> Lovedale TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Majuba TVET College"> Majuba TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Maluti TVET College"> Maluti TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Mopani South East TVET College"> Mopani South East TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Motheo TVET College"> Motheo TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Mnambithi TVET College"> Mnambithi TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Northern Cape Rural TVET College"> Northern Cape Rural TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Northern Cape Urban TVET College"> Northern Cape Urban TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Orbit TVET College"> Orbit TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Port Elizabeth TVET College"> Port Elizabeth TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Sekhukhune TVET College"> Sekhukhune TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="South Cape TVET College"> South Cape TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="South West Gauteng TVET College"> South West Gauteng TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Taletso TVET College"> Taletso TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Thekwini TVET College"> Thekwini TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Tshwane North TVET College"> Tshwane North TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Tshwane South TVET College"> Tshwane South TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Umfolozi TVET College"> Umfolozi TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Umgungundlovu TVET College"> Umgungundlovu TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Vhembe TVET College"> Vhembe TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Vuselela TVET College"> Vuselela TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Waterberg TVET College"> Waterberg TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="West Coast TVET College"> West Coast TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Western TVET College"> Western TVET College</label><br>
 </div>
 <br>
 
@@ -299,28 +300,26 @@
   <li>Applications can be mixture of Tvets, bursaries and Universities</li>
 </ul>
 <br>
-       
+
 <h4>Required documents</h4>
 <br>
 <label for="file">ID Document <br> of applicant:</label>
-<input type="file" id="Id_document_applicant" accept=".pdf,.jpg,.png" name="uploaded_document" required><br>
+<input type="file" id="Id_document_applicant" accept=".pdf,.jpg,.png" name="id_document_applicant" required><br>
 <br>
 
 <label for="file">Grade 11/12 <br>Final Results: </label>
-<input type="file" id="results_documents" accept=".pdf,.jpg,.png" name="uploaded_document" required><br>
+<input type="file" id="results_documents" accept=".pdf,.jpg,.png" name="results_documents" required><br>
 <br>
-
 
 <h4>Capitec Bank <br>
 Acc num: 2229073407<br>
 @Varsity Applicants<br>
 Acc Holder: Mr V Mathebula<br>
-Upload the  Proof of Payment </h4>
+Upload the Proof of Payment </h4>
 <br>
 
-
 <label for="file">Proof of Payment </label>
-<input type="file" id="proof_of_payment" accept=".pdf,.jpg,.png"name="uploaded_document" required><br>
+<input type="file" id="proof_of_payment" accept=".pdf,.jpg,.png" name="proof_of_payment" required><br>
 <br>
 
 <h4>Optional documents</h4>
@@ -330,38 +329,32 @@ Upload the  Proof of Payment </h4>
 <br>
 
 <label for="file">ID Document <br>of Next of Kin:</label>
-<input type="file" id="Id_document_parent" accept=".pdf,.jpg,.png"name="uploaded_document"><br>
+<input type="file" id="Id_document_parent" accept=".pdf,.jpg,.png" name="id_document_parent"><br>
 <br>
 
 <label for="file">Proof of Residence <br> or Bank Statement:</label>
-<input type="file" id="proof_of_res" accept=".pdf,.jpg,.png" name="uploaded_document"><br>
+<input type="file" id="proof_of_res" accept=".pdf,.jpg,.png" name="proof_of_res"><br>
 <br>
 <br>
 <br>
 
-      <label for="username">Username (Email):</label>
-      <input type="email" id="username" name="username" required><br>
+<label for="username">Username (Email):</label>
+<input type="email" id="username" name="username" required><br>
 
-      <!-- Password Field -->
-     <label for="password">Password:</label><br>
-      <input type="password" id="pass_word" name="password"  required><br>
+<!-- Password Field -->
+<label for="password">Password:</label><br>
+<input type="password" id="pass_word" name="password" required><br>
 
-       <!-- Confirm Password Field -->
-       <label for="confirmPassword">Confirm Password:</label><br>
-       <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+<!-- Confirm Password Field -->
+<label for="confirmPassword">Confirm Password:</label><br>
+<input type="password" id="confirmPassword" name="confirmPassword" required><br>
 
-    <br>
-    <label for="whatsapp_number">WhatsApp Number:</label>
-    <input type="text" id="app_number" name="whatsapp_number" required><br><br>
+<br>
+<label for="whatsapp_number">WhatsApp Number:</label>
+<input type="text" id="app_number" name="whatsapp_number" required><br><br>
 
-    <script src="static\app.js"></script>
-    <!-- Submit Button -->
-<input type="submit" id="submit" name="submit" href="#">
-
-    </form>
-      
-
-    
-  
+<!-- Submit Button -->
+<input type="submit" value="Submit">
+</form>
   </body>
 </html>
