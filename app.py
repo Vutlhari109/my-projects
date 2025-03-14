@@ -167,6 +167,7 @@ def log_request():
         print("Incoming Request Data:", request.form)
 
 @app.route('/test-db')
+
 def test_db():
     try:
         result = db.session.execute(text("SELECT 1"))
@@ -749,5 +750,7 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='127.0.0.1', port=5000)  # Start the Flask app
+    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
+    app.run(host="0.0.0.0", port=port, debug=True)
+
 
