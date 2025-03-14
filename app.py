@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from flask import current_app as app
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text  # Import text separately
 from flask_migrate import Migrate
 import hashlib
 from MySQLdb._exceptions import IntegrityError  # Import this at the top
@@ -28,6 +29,8 @@ load_dotenv()
 # Flask Configuration
 app = Flask(__name__)
 
+
+
 # Set up custom logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -37,12 +40,12 @@ console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 console_handler.setFormatter(formatter)
-
+  
 # Add the handler to the logger
 app.logger.addHandler(console_handler)
 
 CORS(app)  # Enable CORS
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://Vutlhari:Vutlhari%401732@localhost/varsity_applicants'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://post_data_tj0o_user:yHC7TriEVqzfxislKVEuOWhP8OJ16IaB@dpg-cva3m6bqf0us73ceg7f0-a.frankfurt-postgres.render.com:5432/post_data_tj0o'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)  # Initialize the database
 migrate = Migrate(app, db)
@@ -163,10 +166,24 @@ def log_request():
     if request.method == "POST":
         print("Incoming Request Data:", request.form)
 
+@app.route('/test-db')
+def test_db():
+    try:
+        result = db.session.execute(text("SELECT 1"))
+        return jsonify({"message": "Database connected successfully!"})
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
 @app.route('/')
 def home():
-    app.logger.debug('Home page accessed.')  # Logs a debug message when the home page is accessed
-    return render_template('index.html')
+    try:
+        db.session.execute(text('SELECT 1'))  # Just test the connection
+        app.logger.debug('Database connection successful.')  
+        return render_template('index.html')  # Render home page
+    except Exception as e:
+        app.logger.error(f'Database connection error: {e}')
+        return f'Error: {e}'
 
 
 # Other Pages (Extensions)
