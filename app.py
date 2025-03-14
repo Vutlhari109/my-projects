@@ -124,12 +124,16 @@ class Message(db.Model):
 with app.app_context():
     db.create_all()
 
-# MySQL Configuration (load from .env)
-app.config['MYSQL_HOST'] = os.getenv('MYSQL_HOST', 'localhost')  # Use 'localhost' as fallback
-app.config['MYSQL_USER'] = os.getenv('MYSQL_USER', 'root')  # Use 'root' as fallback
-app.config['MYSQL_PASSWORD'] = os.getenv('MYSQL_PASSWORD', 'your_default_password_here')  # Replace with fallback
-app.config['MYSQL_DB'] = os.getenv('MYSQL_DB', 'varsity_applicants')  # Use 'varsity_applicants' as fallback
-app.secret_key = os.getenv('SECRET_KEY', 'your_default_secret_key_here')  # Replace with fallback
+# Load PostgreSQL connection string from environment variables
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    'DATABASE_URL',
+    'postgresql://post_data_tj0o_user:yHC7TriEVqzfxislKVEuOWhP8OJ16IaB@dpg-cva3m6bqf0us73ceg7f0-a.frankfurt-postgres.render.com/post_data_tj0o'
+)  # Fallback if env variable is missing
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To prevent overhead
+
+# Secret key for session management
+app.secret_key = os.getenv('SECRET_KEY', 'your_default_secret_key_here')
 
 # Configure upload folder and allowed extensions
 app.config['STATIC_FOLDER'] = 'static'
