@@ -3,44 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-left: 20px;
+        }
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .user-info {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin: 40px 0;  /* Reduced margin */
+            padding: 40px;  /* Reduced padding */
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .user-info div {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;  /* Reduced padding */
+            border-bottom: 1px solid #ddd;
+        }
+        .user-info div:last-child {
+            border-bottom: none;
+        }
+        .user-info label {
+            font-weight: bold;
+            margin-right: 5px;  /* Reduced space between label and value */
+        }
+        .user-info span {
+            flex: 1;
+            text-align: left;  /* Align text to the left */
+            margin-left: 10px;  /* Reduced space between label and value */
+        }
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            margin: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 300px;
+        }
+        .actions {
+            text-align: center;
+            margin: 10px;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-left:30px;
+        }
+        img {
+            margin-left:30px;
+            margin-top:30px;
+            height:150px;
+            border-radius:30px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, {{ user.username }}</h1>
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Second Name: {{ user.second_name }}</p>
-    <p>Surname: {{ user.surname }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone: {{ user.phone }}</p>
-    <p>Gender: {{ user.gender }}</p>
-    <p>Applicant Title: {{ user.applicantTitle }}</p>
-    <p>ID Number: {{ user.idNumber }}</p>
-    <p>Postal Code: {{ user.postalCode }}</p>
-    <p>Province: {{ user.province }}</p>
-    <p>Home Language: {{ user.homeLanguage }}</p>
-    <p>Matric Year: {{ user.matricYear }}</p>
-    <p>Upgrading: {{ user.upgrading }}</p>
-    <p>NSFAS Bursary: {{ user.nsfasBursary }}</p>
-    <p>Birthday: {{ user.bday }}</p>
-    <p>Address: {{ user.address }}</p>
-    <p>School: {{ user.school }}</p>
-    <p>Next of Kin Title: {{ user.nextTitle }}</p>
-    <p>Next of Kin Name: {{ user.nextName }}</p>
-    <p>Next of Kin Second Name: {{ user.nextsName }}</p>
-    <p>Next of Kin Surname: {{ user.nextsurName }}</p>
-    <p>Next of Kin Phone: {{ user.nextPhone }}</p>
-    <p>Next of Kin Gender: {{ user.nextGender }}</p>
-    <p>Next of Kin Email: {{ user.nextEmail }}</p>
-    <p>Next of Kin Birthday: {{ user.nextBday }}</p>
-    <p>Next of Kin Address: {{ user.nextAddress }}</p>
-    <p>Next of Kin Postal Code: {{ user.nextPostalCode }}</p>
-    <p>WhatsApp Number: {{ user.whatsapp_number }}</p>
-    <p>Selected Institutions: {{ user.selected_institutions }}</p>
-    <p>Id Document: {{ user.id_document_applicant }}</p>
-    <p>Results Document: {{ user.results_documents }}</p>
-    <p>Proof of Payment: {{ user.proof_of_payment }}</p>
-    <p>Id Document of Parent: {{ user.id_document_parent }}</p>
-    <p>Proof of Residence: {{ user.proof_of_res }}</p>
+    <header>
+        <img src="{{ url_for('static', filename='vp.jpg') }}" alt="Varsity Applicants Logo" height="70px">
+    </header>
 
+    <h1>Applicant Dashboard</h1>
+
+    <div class="dashboard-container">
+        <h2>Your Information</h2>
+        <h4 class="message">Messages</h4>
+       
+        {% for message, file_path in messages %}
+            <div class="message">
+                <p>{{ message }}</p>
+                {% if file_path %}
+                    <a href="{{ url_for('static', filename=file_path.replace('static/', '')) }}" target="_blank">Download File</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div id="chatModal" style="display: none;">
+            <div>
+                <h2>Respond to Staff</h2>
+                <div id="chatHistory"></div>
+                <textarea id="messageText" placeholder="Type your message..." rows="4" cols="50"></textarea>
+                <input type="file" id="fileInput" />
+                <button id="sendMessageBtn">Send</button>
+                <button id="backMessageBtn">Back</button>
+            </div>
+        </div>
+        <button onclick="openChatModal()">Respond to Staff</button>
+
+        <div class="user-info">
+            <div><label>Username:</label><span>{{ user.username }}</span></div>
+            <div><label>First Name:</label><span>{{ user.first_name }}</span></div>
+            <div><label>Second Name:</label><span>{{ user.second_name }}</span></div>
+            <div><label>Surname:</label><span>{{ user.surname }}</span></div>
+            <div><label>Email:</label><span>{{ user.email }}</span></div>
+            <div><label>Phone:</label><span>{{ user.phone }}</span></div>
+            <div><label>Gender:</label><span>{{ user.gender }}</span></div>
+            <div><label>Applicant Title:</label><span>{{ user.applicantTitle }}</span></div>
+            <div><label>ID Number:</label><span>{{ user.idNumber }}</span></div>
+            <div><label>Postal Code:</label><span>{{ user.postalCode }}</span></div>
+            <div><label>Province:</label><span>{{ user.province }}</span></div>
+            <div><label>Home Language:</label><span>{{ user.homeLanguage }}</span></div>
+            <div><label>Matric Year:</label><span>{{ user.matricYear }}</span></div>
+            <div><label>Upgrading:</label><span>{{ user.upgrading }}</span></div>
+            <div><label>NSFAS Bursary:</label><span>{{ user.nsfasBursary }}</span></div>
+            <div><label>Birthday:</label><span>{{ user.bday }}</span></div>
+            <div><label>Address:</label><span>{{ user.address }}</span></div>
+            <div><label>School:</label><span>{{ user.school }}</span></div>
+            <div><label>Chosen Institutions:</label><span>{{ user.selected_institutions }}</span></div>
+            <div><label>Next of Kin Name:</label><span>{{ user.nextName }}</span></div>
+            <div><label>Next of Kin Second Name:</label><span>{{ user.nextsName }}</span></div>
+            <div><label>Next of Kin Surname:</label><span>{{ user.nextsurName }}</span></div>
+            <div><label>Next of Kin Title:</label><span>{{ user.nextTitle }}</span></div>
+            <div><label>Next of Kin ID Number:</label><span>{{ user.nextIdNumber }}</span></div>
+            <div><label>Next of Kin Phone:</label><span>{{ user.nextPhone }}</span></div>
+            <div><label>Next of Kin Gender:</label><span>{{ user.nextGender }}</span></div>
+            <div><label>Next of Kin Email:</label><span>{{ user.nextEmail }}</span></div>
+            <div><label>Next of Kin Birth Day:</label><span>{{ user.nextBday }}</span></div>
+            <div><label>Next of Kin Address:</label><span>{{ user.nextAddress }}</span></div>
+            <div><label>Next of Kin Postal Code:</label><span>{{ user.nextPostalCode }}</span></div>
+            <div><label>WhatsApp Number:</label><span>{{ user.whatsapp_number }}</span></div>
+            <div><label>ID Document:</label>{% if files.id_document %}<a href="{{ url_for('static', filename=files.id_document.replace('static/', '')) }}" target="_blank">View</a>{% else %}<span>No file available</span>{% endif %}</div>
+            <div><label>Results Documents:</label>{% if files.results_documents %}<a href="{{ url_for('static', filename=files.results_documents.replace('static/', '')) }}" target="_blank">View</a>{% else %}<span>No file available</span>{% endif %}</div>
+            <div><label>Proof of Payment:</label>{% if files.proof_of_payment %}<a href="{{ url_for('static', filename=files.proof_of_payment.replace('static/', '')) }}" target="_blank">View</a>{% else %}<span>No file available</span>{% endif %}</div>
+            <div><label>ID Copy of Next of Kin:</label>{% if files.id_document_parent %}<a href="{{ url_for('static', filename=files.id_document_parent.replace('static/', '')) }}" target="_blank">View</a>{% else %}<span>No file available</span>{% endif %}</div>
+            <div><label>Proof of Residence:</label>{% if files.proof_of_res %}<a href="{{ url_for('static', filename=files.proof_of_res.replace('static/', '')) }}" target="_blank">View</a>{% else %}<span>No file available</span>{% endif %}</div>
+            <button onclick="window.location.href='/edit_form'">Edit</button>
+        </div>
+    </div>
+    <button onclick="window.location.href='/logout'">Logout</button>
+
+    <script>
+        // Function to open the chat modal
+        function openChatModal() {
+            document.getElementById('chatModal').style.display = 'block';
+            loadChatHistory({{ user.id }});
+        }
+
+        // Function to load chat history
+        function loadChatHistory(userId) {
+            fetch(`/chat_history/${userId}`)
+                .then(response => response.json())
+                .then(messages => {
+                    const chatHistory = document.getElementById('chatHistory');
+                    chatHistory.innerHTML = '';
+                    messages.forEach(([message, file_path]) => {
+                        const messageDiv = document.createElement('div');
+                        messageDiv.innerHTML = `<p>${message}</p>`;
+                        if (file_path) {
+                            messageDiv.innerHTML += `<a href="/static/${file_path}" target="_blank">Download File</a>`;
+                        }
+                        chatHistory.appendChild(messageDiv);
+                    });
+                })
+                .catch(error => console.error('Error loading chat history:', error));
+        }
+
+        // Function to send the message
+        function sendMessage() {
+            const messageText = document.getElementById('messageText').value;
+            const fileInput = document.getElementById('fileInput').files[0];
+
+            if (!messageText && !fileInput) {
+                alert("Please enter a message or upload a file.");
+                return;
+            }
+
+            // Create a FormData object to send the message and file (if any)
+            const formData = new FormData();
+            formData.append('userId', {{ user.id }});
+            formData.append('message', messageText);
+            if (fileInput) {
+                formData.append('file', fileInput);
+            }
+
+            fetch('/send_message', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Message sent successfully');
+                    loadChatHistory({{ user.id }});  // Reload chat history
+                    resetMessage();  // Reset the message input and file input
+                } else {
+                    alert('Error sending message');
+                }
+            })
+            .catch(error => alert('Error: ' + error));
+        }
+
+        // Function to reset the message input and file input
+        function resetMessage() {
+            document.getElementById('messageText').value = '';
+            document.getElementById('fileInput').value = '';
+        }
+
+        // Function to close the chat modal
+        function closeChatModal() {
+            document.getElementById('chatModal').style.display = 'none';
+            resetMessage();
+        }
+
+        document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
+        document.getElementById('backMessageBtn').addEventListener('click', closeChatModal);
+    </script>
 </body>
 </html>

@@ -1,166 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="vp.jpg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="vp.jpg">
     <title>Varsity Applicants</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul img {
+            height: 70px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        nav ul li a:hover {
+            color: #f4a261;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #61c0a4;
+            text-align: center;
+            padding: 50px 20px;
+            color: white;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column; /* Align buttons vertically */
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 18px;
+        }
+
+        .hero .btn {
+            display: inline-block;
+            background-color: #f4a261;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .hero .btn:hover {
+            background-color: #e76f51;
+        }
+
+        /* Services Section */
+        #services {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: white;
+        }
+
+        .service {
+            display: inline-block;
+            width: 30%;
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .service h3 {
+            font-size: 22px;
+            color: #333;
+        }
+
+        .service p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Contact Section */
+        #contact {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #f8f9fa;
+        }
+
+        form {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        form button:hover {
+            background-color: #e76f51;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        .about {
+            text-align: center;
+            margin-left: 20px;
+        }
+        #or_login{
+            text-align: center;
+            margin-left: 20px;
+        }
+        #apply{
+            margin-bottom:40px;
+
+        }
+      
+    </style>
     
-  </head>
-  <body>
-    <form action="{{ url_for('register') }}" method="POST" enctype="multipart/form-data">
-      <style>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <img src="{{ url_for('static', filename='vp.jpg') }}" alt="Varsity Applicants Logo" height="70px">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-      body {
-        
-        max-width: 400px;
-        margin-left: 130px;
-    }
-
-      </style>
-
-      <!-- Applicant's Details -->
-      <h3>Applicant's Details</h3>
-      <br>
-      <ul>
-        <li>This information is for the person requesting application assistance</li>
-        <li>This information is compulsory</li>
-      </ul>
-      <br>
-
-      <!-- Input First Name of client -->
-      <label for="fname">First name:</label>
-      <input type="text" id="fname" name="first_name" required><br>
-      
-
-      <!-- Input Second Name of client -->
-      <label for="sname">Second name:</label>
-      <input type="text" id="sname" name="second_name" placeholder="(Optional)"><br>
-
-      <!-- Input Surname of client -->
-      <label for="surname">Surname:</label>
-      <input type="text" id="surname" name="surname" required><br>
-
-      <!-- Input Gender -->
-      <label for="gender">Gender:</label>
-      <select id="gender" name="gender" required>
-        <option value="Please Select">Please Select</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-      </select><br>
-
-      <!-- Input ID Number -->
-      <label for="idNumber">ID number:</label>
-      <input type="text" id="idNumber" name="idNumber" minlength="13" maxlength="13" required><br>
-      
-
-      <!-- Input Birth Date -->
-      <label for="bday">Birth date:</label>
-      <input type="date" id="bday" name="bday" required><br>
-
-      <!-- Input Cellphone Number -->
-      <label for="phone">Cellphone number:</label>
-      <input type="tel" id="phone" name="phone" minlength="10" maxlength="10" placeholder="0712345678" required><br>
-
-      <!-- Input Email Address -->
-      <label for="email">Email address:</label>
-      <input type="email" id="email" name="email" required><br>
-
-      <!-- Input Physical Address -->
-      <label for="address">Physical address:</label>
-      <input type="text" id="address" name="address" placeholder="e.g. 123 Avenue Street" required><br>
-
-      <!-- Input Postal Code -->
-      <label for="postalCode">Postal Code:</label>
-      <input type="text" id="postalCode" name="postalCode" minlength="4" maxlength="4" required><br>
-
-      <!-- Input High School Name -->
-      <label for="school">High School name:</label>
-      <input type="text" id="school" name="school" placeholder="e.g. Akani High School" required><br>
-
-      <!-- Input Title -->
-      <label for="applicantTitle" >Title:</label>
-      <select id="applicantTitle" name="applicantTitle" required>
-        <option value="Please Select">Please Select</option>
-        <option value="Mr">Mr</option>
-        <option value="Miss">Miss</option>
-        <option value="Mrs">Mrs</option>
-        <option value="Dr">Dr</option>
-      </select><br>
-
-      <!-- Input Province -->
-      <label for="province">Province:</label>
-      <select id="province" name="province" required>
-        <option value="Please Select">Please Select</option>
-        <option value="Gauteng">Gauteng</option>
-        <option value="Limpopo">Limpopo</option>
-        <option value="Kwa-Zulu Natal">Kwa-Zulu Natal</option>
-        <option value="Eastern Cape">Eastern Cape</option>
-        <option value="Mpumalanga">Mpumalanga</option>
-        <option value="Western Cape">Western Cape</option>
-        <option value="Free State">Free State</option>
-        <option value="North West">North West</option>
-        <option value="Northern Cape">Northern Cape</option>
-      </select><br>
-
-      <!-- Input Home Language -->
-      <label for="homeLanguage">Home Language:</label>
-      <select id="homeLanguage" name="homeLanguage" required>
-        <option value="Please Select">Please Select</option>
-        <option value="English">English</option>
-        <option value="Afrikaans">Afrikaans</option>
-        <option value="Xitsonga">Xitsonga</option>
-        <option value="Isizulu">Isizulu</option>
-        <option value="Isixhosa">Isixhosa</option>
-        <option value="Siswati">Siswati</option>
-        <option value="Isindebele">Isindebele</option>
-        <option value="Sepedi">Sepedi</option>
-        <option value="Sesotho">Sesotho</option>
-        <option value="Setswana">Setswana</option>
-        <option value="Tshivhenda">Tshivhenda</option>
-        <option value="Sign Language">Sign Language</option>
-      </select><br>
-
-      <!-- Input Matric Year -->
-      <label for="matricYear">Matric year:</label>
-      <input type="" id="matricYear" name="matricYear" placeholder="e.g. 2025" required><br>
-
-      <!-- Input Upgrading -->
-      <label for="upgrading">Upgrading:</label>
-      <select id="upgrading" name="upgrading" required>
-        <option value="Please Select">Please Select</option>
-        <option value="First time">First time </option>
-        <option value="YES">YES</option>
-        <option value="NO">NO</option>
-      </select><br>
-
-      <!-- Input NSFAS Bursary Interest -->
-      <label for="nsfasBursary">Do you want to apply for NSFAS bursary?</label>
-      <select id="nsfasBursary" name="nsfasBursary" required>
-        <option value="YES">YES</option>
-        <option value="NO">NO</option>
-      </select><br>
-
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Varsity Applicants <br> Website</h1>
+            <p>Click Apply to request application assistance</p><br>
+            <a href="{{ url_for('form') }}" class="btn" id="apply">Apply</a>
   
+            <a href="{{ url_for('login') }}" class="btn">Log In</a>
+           
+        </div>
+    </section>
 
-      <br>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>We are a passionate team dedicated to assisting you with applications.</p>
+    </section>
 
-      <h3>Next of Kin Details</h3>
-      <br>
-      <ul>
-        <li>Next of kin can be anyone next to you,parent or sibling relative or neighbour</li>
-        <li> This information is compulsory</li>
-      </ul>
-      <br>
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="service">
+            <h3>Info</h3>
+            <p>We do applications online, making everything simple. No physical appointments.</p><br>
+        </div>
+        <div class="service"><br>
+            <h3>Service</h3><br>
+            <p>We apply for students at Universities, TVETs, and for Bursaries.</p><br>
+        </div>
+        <div class="service">
+            <h3>Charges</h3>
+            <p>We charge R40 per application, R300 for 20 applications, and R450 for 30 applications.</p>
+        </div>
+    </section>
 
-      <!-- Next of Kin First Name -->
-      <label for="nextName">Next of kin First name:</label>
-      <input type="text" id="nextName" name="nextName" required><br>
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form action="#">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </section>
 
-      <!-- Next of Kin Second Name -->
-      <label for="nextsName">Next of kin Second name:</label>
-      <input type="text" id="nextsName" name="nextsName" placeholder="(Optional)"><br>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 | Varsity Applicants</p>
+    </footer>
 
+<<<<<<< HEAD
       <!-- Next of Kin Surname -->
       <label for="nextsurName">Next of kin Surname:</label>
       <input type="text" id="nextsurName" name="nextsurName" required><br>
@@ -358,3 +439,7 @@ Upload the Proof of Payment </h4>
 </form>
   </body>
 </html>
+=======
+</body>
+</html>
+>>>>>>> 08f9037 (Update dashboard and staff dashboard with real-time chat functionality and timestamps)

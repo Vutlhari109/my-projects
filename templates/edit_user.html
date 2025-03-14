@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        
+        <label for="fname">First name:</label>
+        <input type="text" id="fname" name="first_name" class="textInput" value="{{ user.first_name }}"><br>
+        
+  
+        <!-- Input Second Name of client -->
+        <label for="sname">Second name:</label>
+        <input type="text" id="sname" name="second_name" class="secondN"  placeholder="(Optional)" value="{{ user.second_name}}"><br>
+  
+        <!-- Input Surname of client -->
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" name="surname" class="textInput"   value="{{ user.surname }}"><br>
+  
+        <!-- Input Gender -->
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" class"gender" value="{{ user.gender }}">
+          <option value="Please Select">Please Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select><br>
+  
+        <!-- Input ID Number -->
+        <label for="idNumber">ID number:</label>
+        <input type="text" id="idNumber" name="idNumber" minlength="13" maxlength="13" class="Idnum" value="{{ user.idNumber }}"><br>
+        
+  
+        <!-- Input Birth Date -->
+        <label for="bday">Birth date:</label>
+        <input type="date" id="bday" name="bday" value="{{ user.bday }}"><br>
+  
+        <!-- Input Cellphone Number -->
+        <label for="phone">Cellphone number:</label>
+        <input type="tel" id="phone" name="phone" minlength="10" maxlength="10" placeholder="0712345678" value="{{ user.phone }}"><br>
+  
+        <!-- Input Email Address -->
+        <label for="email">Email address:</label>
+        <input type="email" id="email" name="email" class="email" value="{{ user.email }}"><br>
+  
+        <!-- Input Physical Address -->
+        <label for="address">Physical address:</label>
+        <input type="text" id="address" name="address" placeholder="e.g. 123 Avenue Street" value="{{ user.address }}"><br>
+  
+        <!-- Input Postal Code -->
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" name="postalCode" minlength="4" maxlength="4" value="{{ user.postalCode }}"><br>
+  
+        <!-- Input High School Name -->
+        <label for="school">High School name:</label>
+        <input type="text" id="school" name="school" placeholder="e.g. Akani High School" value="{{ user.school }}"><br>
+  
+        <!-- Input Title -->
+        <label for="applicantTitle" >Title:</label>
+        <select id="applicantTitle" name="applicantTitle" class="title" value="{{ user.applicantTitle }}">
+          <option value="Please Select">Please Select</option>
+          <option value="Mr">Mr</option>
+          <option value="Miss">Miss</option>
+          <option value="Mrs">Mrs</option>
+          <option value="Dr">Dr</option>
+        </select><br>
+  
+        <!-- Input Province -->
+        <label for="province">Province:</label>
+        <select id="province" name="province" value="{{ user.province }}">
+          <option value="Please Select">Please Select</option>
+          <option value="Gauteng">Gauteng</option>
+          <option value="Limpopo">Limpopo</option>
+          <option value="Kwa-Zulu Natal">Kwa-Zulu Natal</option>
+          <option value="Eastern Cape">Eastern Cape</option>
+          <option value="Mpumalanga">Mpumalanga</option>
+          <option value="Western Cape">Western Cape</option>
+          <option value="Free State">Free State</option>
+          <option value="North West">North West</option>
+          <option value="Northern Cape">Northern Cape</option>
+        </select><br>
+  
+        <!-- Input Home Language -->
+        <label for="homeLanguage">Home Language:</label>
+        <select id="homeLanguage" name="homeLanguage" value="{{ user.homeLanguage }}">
+          <option value="Please Select">Please Select</option>
+          <option value="English">English</option>
+          <option value="Afrikaans">Afrikaans</option>
+          <option value="Xitsonga">Xitsonga</option>
+          <option value="Isizulu">Isizulu</option>
+          <option value="Isixhosa">Isixhosa</option>
+          <option value="Siswati">Siswati</option>
+          <option value="Isindebele">Isindebele</option>
+          <option value="Sepedi">Sepedi</option>
+          <option value="Sesotho">Sesotho</option>
+          <option value="Setswana">Setswana</option>
+          <option value="Tshivhenda">Tshivhenda</option>
+          <option value="Sign Language">Sign Language</option>
+        </select><br>
+  
+        <!-- Input Matric Year -->
+        <label for="matricYear">Matric year:</label>
+        <input type="" id="matricYear" name="matricYear" placeholder="e.g. 2025" value="{{ user.matricYear }}"><br>
+  
+        <!-- Input Upgrading -->
+        <label for="upgrading">Upgrading:</label>
+        <select id="upgrading" name="upgrading" value="{{ user.upgrading }}">
+          <option value="YES">YES</option>
+          <option value="NO">NO</option>
+        </select><br>
+  
+        <!-- Input NSFAS Bursary Interest -->
+        <label for="nsfasBursary">Do you want to apply for NSFAS bursary?</label>
+        <select id="nsfasBursary" name="nsfasBursary" value="{{ user.nsfasBursary }}">
+          <option value="YES">YES</option>
+          <option value="NO">NO</option>
+        </select><br>
+  
+    
+  
+        <br>
+  
+        <h3>Next of Kin Details</h3>
+        <br>
+        <ul>
+          <li>Next of kin can be anyone next to you,parent or sibling relative or neighbour</li>
+          <li> This information is compulsory</li>
+        </ul>
+        <br>
+  
+        <!-- Next of Kin First Name -->
+        <label for="nextName">Next of kin First name:</label>
+        <input type="text" id="nextName" name="nextName" class="textInput" value="{{ user.nextName }}"><br>
+  
+        <!-- Next of Kin Second Name -->
+        <label for="nextsName">Next of kin Second name:</label>
+        <input type="text" id="nextsName" name="nextsName" class="secondN"  placeholder="(Optional)" value="{{ user.nextsName }}"><br>
+  
+        <!-- Next of Kin Surname -->
+        <label for="nextsurName">Next of kin Surname:</label>
+        <input type="text" id="nextsurName" name="nextsName" class="textInput" value="{{ user.nextsurName }}"><br>
+  
+        <!-- Next of Kin Title -->
+        <label for="nesTitle">Next of kin Title:</label>
+        <select id="nesTitle" name="nesTitle" class="title" value="{{ user.nesTitle }}">
+          <option value="Please Select">Please Select</option>
+          <option value="Mr">Mr</option>
+          <option value="Miss">Miss</option>
+          <option value="Mrs">Mrs</option>
+          <option value="Dr">Dr</option>
+        </select><br>
+  
+          
+        
+  
+        <!-- Next of Kin Gender -->
+        <label for="nextGender">Next of kin Gender:</label>
+        <select id="nextGender" name="nextGender" class"gender" value="{{ user.nextGender }}">
+          <option value="Please Select">Please Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select><br>
+  
+        <!-- Next of Kin ID Number -->
+        <label for="nextIdNumber">Next of kin ID number:</label>
+        <input type="text" id="nextIdNumber" name="nextIdNumber" minlength="13" maxlength="13" class="Idnum" value="{{ user.nextIdNumber }}"><br>
+  
+        <!-- Next of Kin Birth Date -->
+        <label for="nextBday">Next of kin birth date:</label>
+        <input type="date" id="nextBday" name="nextBday" value="{{ user.nextBday }}"><br>
+  
+        <!-- Next of Kin Cellphone Number -->
+        <label for="nextPhone">Next of kin Cellphone number:</label>
+        <input type="tel" id="nextPhone" name="nextPhone" minlength="10" maxlength="10" placeholder="0712345678" value="{{ user.nextPhone }}"><br>
+      
+        <!-- Next of Kin Email Address -->
+        <label for="nextEmail">Next of kin Email address:</label>
+        <input type="email" id="nextEmail" name="nextEmail" placeholder="(Optional)" class="email" value="{{ user.nextEmail }}"><br>
+        
+        <!--Kin Physical Address -->
+        <label for="nextAddress">Next of kin Physical address:</label>
+        <input type="text" id="nextAddress" name="nextAddress" placeholder="123 Avenue Street" value="{{ user.nextAddress }}"><br>
+  
+        <!-- Next of Kin Postal Code -->
+        <label for="nextPostalCode">Next of kin Postal Code:</label>
+        <input type="text" id="nextPostalCode" name="nextPostalCode" minlength="4" maxlength="4" value="{{ user.nextPostalCode }}"><br>
+  
+        <br>
+  <!-- Choose Institutions you are interested in -->
+  
+  
+  <h2>Select Institutions</h2>
+  
+  <h3>Universities</h3>
+  <div id="universities">
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Limpopo" value="{{ user.institutions }}"> University of Limpopo</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Tshwane University of Technology" value="{{ user.institutions }}"> Tshwane University of Technology</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Cape Town" value="{{ user.institutions }}"> University of Cape Town</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Stellenbosch University" value="{{ user.institutions }}"> Stellenbosch University</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of the Witwatersrand" value="{{ user.institutions }}"> University of the Witwatersrand</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Pretoria" value="{{ user.institutions }}"> University of Pretoria</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of South Africa" value="{{ user.institutions }}"> University of South Africa</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of the Western Cape" value="{{ user.institutions }}"> University of the Western Cape</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Johannesburg" value="{{ user.institutions }}"> University of Johannesburg</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="North West University" value="{{ user.institutions }}"> North West University</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Free State" value="{{ user.institutions }}"> University of Free State</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Durban University of Technology" value="{{ user.institutions }}"> Durban University of Technology</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Nelson Mandela University" value="{{ user.institutions }}"> Nelson Mandela University</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Vaal University of Technology" value="{{ user.institutions }}"> Vaal University of Technology</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Fort Hare" value="{{ user.institutions }}"> University of Fort Hare</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Zululand" value="{{ user.institutions }}"> University of Zululand</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Venda" value="{{ user.institutions }}"> University of Venda</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Central University of Technology" value="{{ user.institutions }}"> Central University of Technology</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Sol Plaatje University" value="{{ user.institutions }}"> Sol Plaatje University</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Rhodes University" value="{{ user.institutions }}"> Rhodes University</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Cape Peninsula University of Technology" value="{{ user.institutions }}"> Cape Peninsula University of Technology</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Walter Sisulu University" value="{{ user.institutions }}"> Walter Sisulu University</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Mangosuthu University of Technology" value="{{ user.institutions }}"> Mangosuthu University of Technology</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of KwaZulu-Natal" value="{{ user.institutions }}"> University of KwaZulu-Natal</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Mpumalanga" value="{{ user.institutions }}"> University of Mpumalanga</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="Sefako Makgatho Health Sciences University" value="{{ user.institutions }}"> Sefako Makgatho Health Sciences University</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Eastern Cape" value="{{ user.institutions }}"> University of Eastern Cape</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of North West" value="{{ user.institutions }}"> University of North West</label><br>
+      <label><input type="checkbox" name="institutions" class="institution" value="University of Limpopo" value="{{ user.institutions }}"> University of Limpopo</label><br>
+  </div>
+      
+ <div>
+    <h3>TVET Colleges</h3>
+<div id="tvets">
+    <label><input type="checkbox" name="institutions" class="institution" value="Boland TVET College" value="{{ user.institutions }}"> Boland TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Buffalo City TVET College" value="{{ user.institutions }}"> Buffalo City TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Capricorn TVET College" value="{{ user.institutions }}"> Capricorn TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Central Johannesburg TVET College" value="{{ user.institutions }}"> Central Johannesburg TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Coastal TVET College" value="{{ user.institutions }}"> Coastal TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="False Bay TVET College" value="{{ user.institutions }}"> False Bay TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Flavius Mareka TVET College" value="{{ user.institutions }}"> Flavius Mareka TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Gert Sibande TVET College" value="{{ user.institutions }}"> Gert Sibande TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Goldfields TVET College" value="{{ user.institutions }}"> Goldfields TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Ikhala TVET College" value="{{ user.institutions }}"> Ikhala TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Ingwe TVET College" value="{{ user.institutions }}"> Ingwe TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="King Hintsa TVET College" value="{{ user.institutions }}"> King Hintsa TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Letaba TVET College" value="{{ user.institutions }}"> Letaba TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Lovedale TVET College" value="{{ user.institutions }}"> Lovedale TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Majuba TVET College" value="{{ user.institutions }}"> Majuba TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Maluti TVET College" value="{{ user.institutions }}"> Maluti TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Mopani South East TVET College" value="{{ user.institutions }}"> Mopani South East TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Motheo TVET College" value="{{ user.institutions }}"> Motheo TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Mnambithi TVET College" value="{{ user.institutions }}"> Mnambithi TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Northern Cape Rural TVET College" value="{{ user.institutions }}"> Northern Cape Rural TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Northern Cape Urban TVET College" value="{{ user.institutions }}"> Northern Cape Urban TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Orbit TVET College" value="{{ user.institutions }}"> Orbit TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Port Elizabeth TVET College" value="{{ user.institutions }}"> Port Elizabeth TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Sekhukhune TVET College" value="{{ user.institutions }}"> Sekhukhune TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="South Cape TVET College" value="{{ user.institutions }}"> South Cape TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="South West Gauteng TVET College" value="{{ user.institutions }}"> South West Gauteng TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Taletso TVET College" value="{{ user.institutions }}"> Taletso TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Thekwini TVET College" value="{{ user.institutions }}"> Thekwini TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Tshwane North TVET College" value="{{ user.institutions }}"> Tshwane North TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Tshwane South TVET College" value="{{ user.institutions }}"> Tshwane South TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Umfolozi TVET College" value="{{ user.institutions }}"> Umfolozi TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Umgungundlovu TVET College" value="{{ user.institutions }}"> Umgungundlovu TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Vhembe TVET College" value="{{ user.institutions }}"> Vhembe TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Vuselela TVET College" value="{{ user.institutions }}"> Vuselela TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Waterberg TVET College" value="{{ user.institutions }}"> Waterberg TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="West Coast TVET College" value="{{ user.institutions }}"> West Coast TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Western TVET College" value="{{ user.institutions }}"> Western TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Ekurhuleni West TVET College" value="{{ user.institutions }}"> Ekurhuleni West TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Gauteng TVET College" value="{{ user.institutions }}"> Gauteng TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Vaal TVET College" value="{{ user.institutions }}"> Vaal TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Sedibeng TVET College" value="{{ user.institutions }}"> Sedibeng TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Mthashana TVET College" value="{{ user.institutions }}"> Mthashana TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Boland TVET College"> Boland TVET College</label><br>
+    <label><input type="checkbox" name="institutions" class="institution" value="Western Cape TVET College" value="{{ user.institutions }}"> Western Cape TVET College</label><br>
+</div>
+
+ </div>
+  
+
+  
+  
+     
+  <label for="username">Username (Email):</label>
+  <input type="email" id="username" name="username" value="{{ user.username }}"><br>
+  
+  <!-- Password Field -->
+  <label for="password">Password:</label><br>
+  <input type="password" id="pass_word" name="password" value="{{ user.username }}"><br>
+  
+  <!-- Confirm Password Field -->
+  <label for="confirmPassword">Confirm Password:</label><br>
+  <input type="password" id="confirmPassword" name="confirmPassword" value="{{ user.username }}"><br>
+  
+  <br>
+  <label for="whatsapp_number">WhatsApp Number:</label>
+  <input type="text" id="app_number" name="whatsapp_number" minlength="10" maxlength="10" value="{{ user.username }}"><br><br>
+        
+        <label>ID Document </label>
+        <input type="file" name="id_document">
+        <p>Current File: {{ user.id_document }}</p>
+    
+        <label>Results Document</label>
+        <input type="file" name="results_documents">
+        <p>Current File: {{ user.results_documents }}</p>
+    
+        <label>Proof of Payment</label>
+        <input type="file" name="proof_of_payment">
+        <p>Current File: {{ user.proof_of_payment }}</p>
+        <label>ID Document (Leave blank to keep current)</label>
+        <input type="file" name="id_document">
+        <p>Current File: {{ user.id_document }}</p>
+    
+        <label>Next of kin ID</label>
+        <input type="file" name="id_document_parent">
+        <p>Current File: {{ user.id_document_parent }}</p>
+    
+        <label>Proof of Residence</label>
+        <input type="file" name="proof_of_res">
+        <p>Current File: {{ user.proof_of_res }}</p>
+    
+        <button type="submit">Update User</button>
+    </form>
+    
+</body>
+</html>

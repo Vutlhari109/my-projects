@@ -1,0 +1,92 @@
+2025-03-13 10:09:22,581 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-13 10:09:22,582 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-13 10:09:22,587 - INFO -  * Restarting with stat
+2025-03-13 10:09:25,102 - WARNING -  * Debugger is active!
+2025-03-13 10:09:25,139 - INFO -  * Debugger PIN: 138-038-389
+2025-03-13 10:09:47,052 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-13 10:09:47,053 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-13 10:09:47,060 - INFO -  * Restarting with stat
+2025-03-13 10:09:48,941 - WARNING -  * Debugger is active!
+2025-03-13 10:09:48,945 - INFO -  * Debugger PIN: 138-038-389
+2025-03-13 10:10:07,519 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-13 10:10:07,519 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-13 10:10:07,522 - INFO -  * Restarting with stat
+2025-03-13 10:10:09,244 - WARNING -  * Debugger is active!
+2025-03-13 10:10:09,248 - INFO -  * Debugger PIN: 138-038-389
+2025-03-13 10:10:16,094 - INFO - 127.0.0.1 - - [13/Mar/2025 10:10:16] "GET / HTTP/1.1" 200 -
+2025-03-13 10:10:16,452 - INFO - 127.0.0.1 - - [13/Mar/2025 10:10:16] "[36mGET /static/vp.jpg HTTP/1.1[0m" 304 -
+2025-03-13 10:10:19,998 - INFO - 127.0.0.1 - - [13/Mar/2025 10:10:19] "GET /form HTTP/1.1" 200 -
+2025-03-13 10:10:20,122 - INFO - 127.0.0.1 - - [13/Mar/2025 10:10:20] "GET /static/script.js HTTP/1.1" 200 -
+2025-03-13 10:13:00,984 - ERROR - Error occurred
+Traceback (most recent call last):
+  File "C:\Users\27795\Documents\GitHub\my-projects\app.py", line 355, in register
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        INSERT INTO users (
+        ^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+        nextPostalCode, whatsapp_number, selected_institutions
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ))
+    ^^
+  File "C:\Users\27795\AppData\Local\Programs\Python\Python313\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\27795\AppData\Local\Programs\Python\Python313\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\27795\AppData\Local\Programs\Python\Python313\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.IntegrityError: (1062, "Duplicate entry 'vutlharimathebula74@gmail.com' for key 'users.email'")
+2025-03-13 10:13:01,318 - INFO - 127.0.0.1 - - [13/Mar/2025 10:13:01] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-03-13 10:15:05,384 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-13 10:15:05,386 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-13 10:15:05,391 - INFO -  * Restarting with stat
+2025-03-13 10:15:20,802 - WARNING -  * Debugger is active!
+2025-03-13 10:15:20,818 - INFO -  * Debugger PIN: 138-038-389
+2025-03-13 10:15:46,668 - ERROR - Error occurred
+Traceback (most recent call last):
+  File "C:\Users\27795\Documents\GitHub\my-projects\app.py", line 355, in register
+    cur.execute("""
+    ~~~~~~~~~~~^^^^
+        INSERT INTO users (
+        ^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+        nextPostalCode, whatsapp_number, selected_institutions
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ))
+    ^^
+  File "C:\Users\27795\AppData\Local\Programs\Python\Python313\Lib\site-packages\MySQLdb\cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "C:\Users\27795\AppData\Local\Programs\Python\Python313\Lib\site-packages\MySQLdb\cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "C:\Users\27795\AppData\Local\Programs\Python\Python313\Lib\site-packages\MySQLdb\connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.IntegrityError: (1062, "Duplicate entry 'vutlharimathebula74@gmail.com' for key 'users.email'")
+2025-03-13 10:15:46,741 - INFO - 127.0.0.1 - - [13/Mar/2025 10:15:46] "[35m[1mPOST /register HTTP/1.1[0m" 500 -
+2025-03-13 10:21:37,210 - INFO -  * Detected change in 'C:\\Users\\27795\\Documents\\GitHub\\my-projects\\app.py', reloading
+2025-03-13 10:21:38,243 - INFO -  * Restarting with stat
+2025-03-13 10:21:43,031 - WARNING -  * Debugger is active!
+2025-03-13 10:21:43,052 - INFO -  * Debugger PIN: 138-038-389
+2025-03-13 10:22:11,973 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-13 10:22:11,973 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-13 10:22:11,979 - INFO -  * Restarting with stat
+2025-03-13 10:22:13,850 - WARNING -  * Debugger is active!
+2025-03-13 10:22:13,854 - INFO -  * Debugger PIN: 138-038-389
+2025-03-13 10:24:05,111 - INFO -  * Detected change in 'C:\\Users\\27795\\Documents\\GitHub\\my-projects\\app.py', reloading
+2025-03-13 10:24:05,991 - INFO -  * Restarting with stat
+2025-03-13 10:24:26,318 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-13 10:24:26,319 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-13 10:24:26,325 - INFO -  * Restarting with stat
+2025-03-13 10:24:28,365 - WARNING -  * Debugger is active!
+2025-03-13 10:24:28,372 - INFO -  * Debugger PIN: 138-038-389
+2025-03-13 10:27:10,920 - INFO -  * Detected change in 'C:\\Users\\27795\\Documents\\GitHub\\my-projects\\app.py', reloading
+2025-03-13 10:27:11,361 - INFO -  * Restarting with stat
