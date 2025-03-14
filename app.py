@@ -1,21 +1,19 @@
 from flask import Flask, request, jsonify, render_template, session, redirect, url_for, send_from_directory
-from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash
 import logging
-import traceback
+import psycopg2
 from werkzeug.utils import secure_filename
 from flask_cors import CORS  # Allow CORS for Chrome extension
 from dotenv import load_dotenv
+import hashlib
 from flask import current_app as app
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text  # Import text separately
 from flask_migrate import Migrate
 import hashlib
-from MySQLdb._exceptions import IntegrityError  # Import this at the top
 import os
-import pymysql
 from datetime import datetime
 
 
@@ -29,6 +27,17 @@ load_dotenv()
 # Flask Configuration
 app = Flask(__name__)
 
+
+# Example of connecting to PostgreSQL
+def get_db_connection():
+    connection = psycopg2.connect(
+        dbname="post_data_tj0o",
+        user="post_data_tj0o_user",
+        password="yHC7TriEVqzfxislKVEuOWhP8OJ16IaB",
+        host="localhost",
+        port="5432"
+    )
+    return connection
 
 
 # Set up custom logging
@@ -49,8 +58,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://post_data_tj0o_user:yHC7Tr
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)  # Initialize the database
 migrate = Migrate(app, db)
-
-
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -77,8 +84,7 @@ class User(db.Model):
     whatsapp_number = db.Column(db.String(20))
     nextName = db.Column(db.String(120))
     nextsName = db.Column(db.String(120))
-    nextsName = db.Column(db.String(120))
-    nesTitle = db.Column(db.String(10))
+    nextTitle = db.Column(db.String(10))
     nextGender = db.Column(db.String(10))
     nextIdNumber = db.Column(db.String(20))
     nextPhone = db.Column(db.String(20))
@@ -86,9 +92,7 @@ class User(db.Model):
     nextAddress = db.Column(db.String(255))
     nextPostalCode = db.Column(db.String(20))
     nextBday = db.Column(db.Date)
-    address = db.Column(db.String(255))
     institutions = db.Column(db.String(255))
-
     
     documents = db.relationship('Document', backref='user', lazy=True)
    
@@ -124,23 +128,10 @@ class Message(db.Model):
 with app.app_context():
     db.create_all()
 
-# Load PostgreSQL connection string from environment variables
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
-    'DATABASE_URL',
-    'postgresql://post_data_tj0o_user:yHC7TriEVqzfxislKVEuOWhP8OJ16IaB@dpg-cva3m6bqf0us73ceg7f0-a.frankfurt-postgres.render.com/post_data_tj0o'
-)  # Fallback if env variable is missing
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # To prevent overhead
-
-# Secret key for session management
-app.secret_key = os.getenv('SECRET_KEY', 'your_default_secret_key_here')
-
 # Configure upload folder and allowed extensions
 app.config['STATIC_FOLDER'] = 'static'
 app.config['ALLOWED_EXTENSIONS'] = {'pdf', 'jpg', 'jpeg', 'png', 'gif'}  # Update allowed extensions
 
-# Initialize MySQL
-mysql = MySQL(app)
 
 # Function to wrap responses in window.alert()
 def alert_response(message, status_code=200):
@@ -171,7 +162,6 @@ def log_request():
         print("Incoming Request Data:", request.form)
 
 @app.route('/test-db')
-
 def test_db():
     try:
         result = db.session.execute(text("SELECT 1"))
@@ -183,13 +173,21 @@ def test_db():
 @app.route('/')
 def home():
     try:
-        db.session.execute(text('SELECT 1'))  # Just test the connection
-        app.logger.debug('Database connection successful.')  
-        return render_template('index.html')  # Render home page
+        # Test the database connection
+        db.session.execute(text('SELECT 1'))  
+        app.logger.debug('Database connection successful.')
+        
+        # Check if tables exist in the public schema
+        result = db.session.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+        tables = result.fetchall()
+
+        # Print the tables in the logs (optional) or return them
+        app.logger.debug(f"Tables in the database: {tables}")
+        
+        return render_template('index.html', tables=tables)  # Pass tables to your home page template
     except Exception as e:
         app.logger.error(f'Database connection error: {e}')
         return f'Error: {e}'
-
 
 # Other Pages (Extensions)
 @app.route('/form')
@@ -221,10 +219,15 @@ def login():
             return jsonify({"success": False, "message": "Username and password required"}), 400
 
         try:
-            cur = mysql.connection.cursor()
+            # Connect to the PostgreSQL database
+            conn = get_db_connection()
+            cur = conn.cursor()
+
+            # Fetch user data from PostgreSQL
             cur.execute("SELECT id, password FROM users WHERE username = %s", (username,))
             user = cur.fetchone()
             cur.close()
+            conn.close()
 
             if user is None:
                 return jsonify({"success": False, "message": "Invalid credentials"}), 401
@@ -241,7 +244,6 @@ def login():
             return jsonify({"success": False, "message": f"Database error: {str(e)}"}), 500
 
     return render_template('login.html')
-
 
 
 # Error handling (database simulation)
@@ -319,26 +321,30 @@ def edit_user(user_id):
 
 
 
-
 @app.route('/delete_message', methods=['POST'])
 def delete_message():
     try:
         data = request.get_json()  # Get JSON data from the request
-        user_id = data['id']  # Extract the user ID
+        user_id = data.get('id')  # Extract the user ID
         
         if not user_id:
             return jsonify({'error': 'User ID is required'}), 400
         
-        # Example: Delete the message from the database
-        cursor = mysql.connection.cursor()
-        cursor.execute('DELETE FROM messages WHERE user_id = %s', (user_id,))
-        mysql.connection.commit()
-        cursor.close()
+        # Find the message by user_id and delete it
+        message = Message.query.filter_by(user_id=user_id).first()
+        
+        if not message:
+            return jsonify({'error': 'Message not found'}), 404
+        
+        db.session.delete(message)
+        db.session.commit()
 
         return jsonify({'success': True, 'message': 'Message deleted successfully'})
     
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        db.session.rollback()  # Rollback in case of error
+        return jsonify({'error': str(e)}), 500
+
 
 
 
@@ -347,6 +353,8 @@ def register():
     if request.method == 'POST':
         data = request.form
         files = request.files
+
+        # Extract form fields
         username = data.get('username')
         password = data.get('password')
         first_name = data.get('first_name')
@@ -380,8 +388,6 @@ def register():
         whatsapp_number = data.get('whatsapp_number')
         institutions = data.getlist('institutions')
 
-    
-
         # Ensure the default static folder exists
         os.makedirs(app.config['STATIC_FOLDER'], exist_ok=True)
 
@@ -406,73 +412,89 @@ def register():
         selected_institutions = ",".join(institutions)
 
         try:
-            cur = mysql.connection.cursor()
-            cur.execute("""
-                INSERT INTO users (
-                    username, password, first_name, second_name, surname, email, phone, gender, 
-                    applicantTitle, idNumber, postalCode, province, homeLanguage, matricYear, 
-                    upgrading, nsfasBursary, bday, address, school, nesTitle, nextIdNumber, nextName, nextsName, 
-                    nextsurName, nextPhone, nextGender, nextEmail, nextBday, nextAddress, 
-                    nextPostalCode, whatsapp_number, selected_institutions
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-            """, (
-                username, hashed_password, first_name, second_name, surname, email, phone, gender, 
-                applicantTitle, idNumber, postalCode, province, homeLanguage, matricYear, 
-                upgrading, nsfasBursary, bday, address, school, nesTitle, nextIdNumber, nextName, nextsName, 
-                nextsurName, nextPhone, nextGender, nextEmail, nextBday, nextAddress, 
-                nextPostalCode, whatsapp_number, selected_institutions
-            ))
-            user_id = cur.lastrowid
+            # Create a new user instance
+            new_user = User(
+                username=username, password=hashed_password, first_name=first_name,
+                second_name=second_name, surname=surname, email=email, phone=phone, gender=gender,
+                applicantTitle=applicantTitle, idNumber=idNumber, postalCode=postalCode,
+                province=province, homeLanguage=homeLanguage, matricYear=matricYear,
+                upgrading=upgrading, nsfasBursary=nsfasBursary, bday=bday, address=address,
+                school=school, nesTitle=nesTitle, nextIdNumber=nextIdNumber, nextName=nextName,
+                nextsName=nextsName, nextsurName=nextsurName, nextPhone=nextPhone,
+                nextGender=nextGender, nextEmail=nextEmail, nextBday=nextBday,
+                nextAddress=nextAddress, nextPostalCode=nextPostalCode,
+                whatsapp_number=whatsapp_number, selected_institutions=selected_institutions
+            )
 
-            cur.execute("""
-                INSERT INTO documents (
-                    user_id, id_document, results_documents, proof_of_payment, id_document_parent, proof_of_res
-                ) VALUES (%s, %s, %s, %s, %s, %s)
-            """, (
-                user_id, file_paths.get('id_document'), file_paths.get('results_documents'), 
-                file_paths.get('proof_of_payment'), file_paths.get('id_document_parent'), 
-                file_paths.get('proof_of_res')
-            ))
+            db.session.add(new_user)
+            db.session.commit()
 
-            mysql.connection.commit()
-            cur.close()
+            # Save document paths in the documents table
+            new_documents = Document(
+                user_id=new_user.id,
+                id_document=file_paths.get('id_document'),
+                results_documents=file_paths.get('results_documents'),
+                proof_of_payment=file_paths.get('proof_of_payment'),
+                id_document_parent=file_paths.get('id_document_parent'),
+                proof_of_res=file_paths.get('proof_of_res')
+            )
+
+            db.session.add(new_documents)
+            db.session.commit()
+
             return redirect(url_for('login'))
-        
-        except Exception as e:
-            logging.error("Error occurred", exc_info=True)
-        return "Internal Server Error", 500
 
-    app.logger.debug('Application form in progress.....') 
+        except Exception as e:
+            db.session.rollback()
+            logging.error("Error occurred", exc_info=True)
+            return "Internal Server Error", 500
+
+    app.logger.debug('Application form in progress.....')
     return render_template('login.html')
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
     try:
-        user_id = request.form['userId']
-        message = request.form['message']
+        user_id = request.form.get('userId')
+        message = request.form.get('message')
         file = request.files.get('file')
 
-        # Ensure the default static folder exists
-        os.makedirs(app.config['STATIC_FOLDER'], exist_ok=True)
+        # Ensure the static folder exists
+        static_folder = app.config.get('STATIC_FOLDER', 'static/uploads')
+        os.makedirs(static_folder, exist_ok=True)
 
         file_path = None
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file_path = os.path.join(app.config['STATIC_FOLDER'], filename).replace("\\", "/")
+            file_path = os.path.join(static_folder, filename).replace("\\", "/")
             file.save(file_path)
 
-        cur = mysql.connection.cursor()
+        # Connect to PostgreSQL
+        conn = psycopg2.connect(
+            dbname="your_db_name",
+            user="your_db_user",
+            password="your_db_password",
+            host="your_db_host",
+            port="your_db_port"
+        )
+        cur = conn.cursor()
+
+        # Insert data into PostgreSQL
         cur.execute("""
             INSERT INTO messages (user_id, message, file_path, timestamp)
             VALUES (%s, %s, %s, CURRENT_TIMESTAMP)
         """, (user_id, message, file_path))
-        mysql.connection.commit()
-        cur.close()
 
-        return jsonify({"success": True})
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        return jsonify({"success": True, "message": "Message sent successfully!"})
 
     except Exception as e:
-        return jsonify({"success": False, "message": str(e)}), 500
+        logging.error(f"Error sending message: {str(e)}", exc_info=True)
+        return jsonify({"success": False, "message": "An error occurred while sending the message."}), 500
+
 
 @app.route('/edit_form')
 def edit_form():
@@ -486,16 +508,30 @@ def edit_form():
 @app.route('/chat_history/<int:user_id>')
 def chat_history(user_id):
     try:
-        cur = mysql.connection.cursor()
+        # Connect to PostgreSQL
+        conn = psycopg2.connect(
+            dbname="your_db_name",
+            user="your_db_user",
+            password="your_db_password",
+            host="your_db_host",
+            port="your_db_port"
+        )
+        cur = conn.cursor()
+
+        # Fetch chat history
         cur.execute("SELECT message, file_path, timestamp FROM messages WHERE user_id = %s ORDER BY timestamp ASC", (user_id,))
         messages = cur.fetchall()
+
+        # Close the connection
         cur.close()
+        conn.close()
 
         return jsonify(messages)
 
     except Exception as e:
-        return jsonify({"success": False, "message": str(e)}), 500
-
+        logging.error(f"Error fetching chat history: {str(e)}", exc_info=True)
+        return jsonify({"success": False, "message": "An error occurred while fetching chat history"}), 500
+    
 @app.route('/update_user', methods=['POST'])
 def update_user():
     try:
@@ -506,8 +542,17 @@ def update_user():
         data = request.form
         files = request.files
 
+        # Connect to PostgreSQL
+        conn = psycopg2.connect(
+            dbname="your_db_name",
+            user="your_db_user",
+            password="your_db_password",
+            host="your_db_host",
+            port="your_db_port"
+        )
+        cur = conn.cursor()
+
         # Update user information
-        cur = mysql.connection.cursor()
         cur.execute('''
             UPDATE users SET
                 first_name = %s,
@@ -568,13 +613,15 @@ def update_user():
                 file.save(file_path)
                 cur.execute(f'UPDATE documents SET {field} = %s WHERE user_id = %s', (file_path, user_id))
 
-        mysql.connection.commit()
+        conn.commit()
         cur.close()
+        conn.close()
 
         return jsonify({'success': True, 'message': 'User updated successfully!'})
 
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        logging.error(f"Error updating user: {str(e)}", exc_info=True)
+        return jsonify({'error': 'An error occurred while updating the user.'}), 400
 
 @app.route('/chat.html')
 def chat():
@@ -589,8 +636,17 @@ def chat():
 def dashboard():
     if 'username' in session:
         try:
-            # Retrieve user information and their associated documents
-            cur = mysql.connection.cursor()
+            # Connect to PostgreSQL
+            conn = psycopg2.connect(
+                dbname="your_db_name",
+                user="your_db_user",
+                password="your_db_password",
+                host="your_db_host",
+                port="your_db_port"
+            )
+            cur = conn.cursor()
+
+            # Retrieve user information and associated documents
             cur.execute('''
                 SELECT u.*, d.id_document, d.results_documents, d.proof_of_payment, d.id_document_parent, d.proof_of_res
                 FROM users u
@@ -599,11 +655,10 @@ def dashboard():
             ''', (session['username'],))
             user = cur.fetchone()
 
-            # If the user is not found, return an error
             if user is None:
                 return redirect('/login')
 
-            # Format the user data for the template
+            # Format the user data
             user_data = {
                 "username": safe_str(user[30]), 
                 "first_name": safe_str(user[1]),
@@ -658,51 +713,17 @@ def dashboard():
                     file_path = file_path[7:]
                 corrected_messages.append((message, file_path))
 
-            # Close the cursor
+            # Close the cursor and connection
             cur.close()
+            conn.close()
 
-            # Pass both the user data, files, and messages to the template
             return render_template('dashboard.html', user=user_data, files=files, messages=corrected_messages)
 
         except Exception as e:
-            print(f"Error: {e}")
-            return redirect('/error')  # Redirect to an error page if an issue occurs
+            logging.error(f"Error loading dashboard: {str(e)}", exc_info=True)
+            return redirect('/error')  
 
-    return redirect('/login')  # Redirect to login if the user is not in session
-
-@app.route('/staff_dashboard', methods=['GET'])
-def staff_dashboard():
-    if 'staff_username' in session:
-        cur = mysql.connection.cursor()
-
-        # Fetch users
-        cur.execute('SELECT * FROM users ORDER BY id DESC')
-        users = cur.fetchall()
-
-        # Fetch documents
-        cur.execute('SELECT user_id, id_document, results_documents, proof_of_payment, id_document_parent, proof_of_res FROM documents')
-        documents = cur.fetchall()
-        cur.close()
-
-        # If no users exist, return an error message
-        if not users:
-            return "No users found in the database."
-
-        # Convert documents list into a dictionary for easy lookup
-        document_dict = {}
-        for doc in documents:
-            user_id = doc[0]
-            # Strip the "static/" part if it exists and store the file name
-            document_dict[user_id] = [
-                doc[i][7:] if doc[i] and doc[i].startswith('static/') else doc[i] 
-                for i in range(1, len(doc))
-            ]
-
-        return render_template('staff_dashboard.html', users=users, documents=document_dict)
-    
-    app.logger.debug('Staff dashboard page accessed.') 
-    return redirect('/staff_login')
-
+    return redirect('/login')  
 
 @app.route('/staff_login', methods=['GET', 'POST'])
 def staff_login():
@@ -715,10 +736,12 @@ def staff_login():
             return jsonify({"success": False, "message": "Username and password required"}), 400
 
         try:
-            cur = mysql.connection.cursor()
+            conn = get_db_connection()
+            cur = conn.cursor()
             cur.execute("SELECT id, password FROM staff WHERE username = %s", (username,))
             staff = cur.fetchone()
             cur.close()
+            conn.close()
 
             if staff:
                 # Hash the entered password using SHA2 (256 bits, same as stored)
@@ -737,12 +760,41 @@ def staff_login():
         except Exception as e:
             return jsonify({"success": False, "message": f"Database error: {str(e)}"}), 500
 
-    app.logger.debug('Staff login page accessed.') 
     return render_template('staff_login.html')
 
+@app.route('/staff_dashboard', methods=['GET'])
+def staff_dashboard():
+    if 'staff_username' in session:
+        conn = get_db_connection()
+        cur = conn.cursor()
 
+        # Fetch users
+        cur.execute('SELECT * FROM users ORDER BY id DESC')
+        users = cur.fetchall()
 
+        # Fetch documents
+        cur.execute('SELECT user_id, id_document, results_documents, proof_of_payment, id_document_parent, proof_of_res FROM documents')
+        documents = cur.fetchall()
+        cur.close()
+        conn.close()
 
+        # If no users exist, return an error message
+        if not users:
+            return "No users found in the database."
+
+        # Convert documents list into a dictionary for easy lookup
+        document_dict = {}
+        for doc in documents:
+            user_id = doc[0]
+            # Strip the "static/" part if it exists and store the file name
+            document_dict[user_id] = [
+                doc[i][7:] if doc[i] and doc[i].startswith('static/') else doc[i] 
+                for i in range(1, len(doc))
+            ]
+
+        return render_template('staff_dashboard.html', users=users, documents=document_dict)
+    
+    return redirect('/staff_login')
 
 @app.route('/logout')
 def logout():
@@ -754,7 +806,5 @@ def logout():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
-    app.run(host="0.0.0.0", port=port, debug=True)
-
+    app.run(debug=True, host='127.0.0.1', port=5000)  # Start the Flask app
 
