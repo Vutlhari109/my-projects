@@ -29,6 +29,7 @@ load_dotenv()
 # Flask Configuration
 app = Flask(__name__)
 
+SQLALCHEMY_DATABASE_URI = f"postgresql://username:{os.getenv('DB_PASSWORD')}@db-host:5432/dbname"
 
 # Example of connecting to PostgreSQL
 def get_db_connection():
@@ -54,7 +55,9 @@ console_handler.setFormatter(formatter)
 # Add the handler to the logger
 app.logger.addHandler(console_handler)
 
+
 CORS(app)  # Enable CORS
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://post_data_tj0o_user:yHC7TriEVqzfxislKVEuOWhP8OJ16IaB@dpg-cva3m6bqf0us73ceg7f0-a.frankfurt-postgres.render.com:5432/post_data_tj0o'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)  # Initialize the database
