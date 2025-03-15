@@ -484,16 +484,13 @@ def register():
             db.session.commit()
             
             return jsonify({"success": True, "message": "Account created successfully!"})
-
+        
         except Exception as e:
-            db.session.rollback()
-            logging.error("Error occurred during registration", exc_info=True)
-            return "Internal Server Error", 500
-
-    app.logger.debug('Application form in progress.....')
-    return render_template('login.html')
-
-
+                db.session.rollback()
+                logging.error("Error occurred during user registration", exc_info=True)
+                return jsonify({"success": False, "message": str(e)}), 400  # Return JSON response
+ 
+ 
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
