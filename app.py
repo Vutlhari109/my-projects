@@ -101,7 +101,7 @@ class User(db.Model):
     nextAddress = db.Column(db.String(255))
     nextPostalCode = db.Column(db.String(20))
     nextBday = db.Column(db.Date)
-    institutions = db.Column(db.String(500))
+    institutions = db.Column(db.String(2000))
     
     documents = db.relationship('Document', backref='user', lazy=True)
    
