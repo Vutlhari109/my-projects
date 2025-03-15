@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template, session, redirect, u
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash
 import logging
+import bcrypt
 from sqlalchemy import Column, Integer, String
 import psycopg2
 from werkzeug.utils import secure_filename
@@ -39,13 +40,6 @@ def get_db_connection():
         port="5432"
     )
     return connection
-
-
-
-
-
-
-
 
 # Set up custom logging
 logging.basicConfig(level=logging.DEBUG)
@@ -102,6 +96,7 @@ class User(db.Model):
     nextPostalCode = db.Column(db.String(20))
     nextBday = db.Column(db.Date)
     institutions = db.Column(db.String(2000))
+    courses = db.Column(db.String(2000))
     
     documents = db.relationship('Document', backref='user', lazy=True)
    
@@ -182,10 +177,6 @@ def test_db():
 @app.route('/')
 def home():
     try:
-        # Test the database connection
-        db.session.execute(text('SELECT 1'))  
-        app.logger.debug('Database connection successful.')
-        
         # Check if tables exist in the public schema
         result = db.session.execute(text("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"))
         tables = result.fetchall()
@@ -305,6 +296,7 @@ def edit_user(user_id):
         user.nextAddress = request.form.get('nextAddress', '')
         user.nextPostalCode = request.form.get('nextPostalCode', '')
         user.institutions = request.form.get('institutions', '')
+        user.courses = request.form.get('courses', '')
         
         # Handle file uploads
         if 'id_document' in request.files and request.files['id_document'].filename:
@@ -395,6 +387,7 @@ def register():
         nextPostalCode = data.get('nextPostalCode')
         whatsapp_number = data.get('whatsapp_number')
         institutions = data.getlist('institutions')
+        courses = data.getlist('courses')
 
         # Ensure the default static folder exists
         os.makedirs(app.config['STATIC_FOLDER'], exist_ok=True)
@@ -418,6 +411,7 @@ def register():
 
         hashed_password = generate_password_hash(password)
         institutions_string = ",".join(institutions) if institutions else ""
+        courses_string= ",".join(courses) if courses else "" 
 
         try:
             # Create a new user instance
@@ -453,7 +447,8 @@ def register():
                 nextAddress=nextAddress,
                 nextPostalCode=nextPostalCode,
                 whatsapp_number=whatsapp_number,
-                institutions=institutions_string
+                institutions=institutions_string,
+                courses=courses_string
             )
 
             db.session.add(new_user)
@@ -617,6 +612,7 @@ def update_user():
                 nextPostalCode = %s,
                 whatsapp_number = %s,
                 selected_institutions = %s
+                courses= %s
             WHERE id = %s
         ''', (
             data.get('first_name'), data.get('second_name'), data.get('surname'), data.get('email'),
@@ -722,7 +718,8 @@ def dashboard():
                 'nextAddress': safe_str(user[27]),
                 'nextPostalCode': safe_str(user[28]),
                 'whatsapp_number': safe_str(user[29]),
-                'selected_institutions': safe_str(user[32]),  # Convert list to string
+                'selected_institutions': safe_str(user[32]),
+                'courses': safe_str(user[33]),
             }
 
             # Get the documents for the user
@@ -838,6 +835,6 @@ def logout():
 
 
 if __name__ == "__main__":
-  port = int(os.environ.get("PORT", 5000))  # Default to 5000 if no port is set
+  port = int(os.environ.get("PORT", 5000))  
   app.run(host="0.0.0.0", port=port)
 
