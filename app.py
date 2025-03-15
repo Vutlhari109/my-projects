@@ -85,6 +85,7 @@ class User(db.Model):
     whatsapp_number = db.Column(db.String(20))
     nextName = db.Column(db.String(120))
     nextsName = db.Column(db.String(120))
+    nextsurName = db.Column(db.String(120))
     nesTitle = db.Column(db.String(10))
     nextGender = db.Column(db.String(10))
     nextIdNumber = db.Column(db.String(20))
