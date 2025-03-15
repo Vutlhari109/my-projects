@@ -3,44 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/style.css">
-    <title>Login</title>
-</head>
+    
      
-  <div id="university_list">
+<body>
+ 
+  <style>
+    table {
+        border: 2px solid black; /* Adds a single border around the entire table */
+        border-collapse: collapse; /* Ensures that the table borders are not doubled */
+      }
+      
+      td {
+        padding: 8px; /* Optional: Adds padding inside each cell */
+        text-align: center; /* Optional: Centers the text inside each cell */
+      }
+      
+      th {
+        padding: 8px; /* Optional: Adds padding inside each header cell */
+        background-color: #f2f2f2; /* Optional: Adds a background color for the header */
+      }
+    </style>
+      
+<br>
+<div id="university_list">
     <h3> List of Universities in South Africa </h3>
     <ul>
-        <li>Check opening and closing dates of universities</li>
-    </ul>     
- <tr>
-    <th>University of Limpopo</th>
-    <th>Tshwane University of Technology</th>
-    <th>University of Cape Town</th>
-    <th>Stellenbosch University</th>
-    <th>University of the Witwatersrand</th>
-    <th>University of Pretoria</th>
-    <th>University of South Africa</th>
-    <th>University of the Western Cape</th>
-    <th>University of Johannesburg</th>
-    <th>North West University</th>
-    <th>University of Free State</th>
-    <th>Durban University of Technology</th>
-    <th>Nelson Mandela University</th>
-    <th>Vaal University of Technology</th>
-    <th>University of Fort Hare</th>
-    <th>University of Zululand</th>
-    <th>University of Venda</th>
-    <th>Central University of Technology</th>
-    <th>Sol Plaatje University</th>
-    <th>Rhodes University</th>
-    <th>Cape Peninsula University of Technology</th>
-    <th>Walter Sisulu University</th>
-    <th>Mangosuthu University of Technology</th>
-    <th>University of KwaZulu-Natal</th>
-    <th>University of Mpumalanga</th>
-    <th>Sefako Makgatho Health Sciences University</th>
- <tr>
- </div>
+        <li>Check opening and closing dates of universities for the 2024 academic year</li>
+    </ul> 
+    <br>
+    <button href="{{ url_for('form') }}"  id="apply">Apply</button> 
+    
+    <br>
+    <br>
+
+    <table border="1">
+     
+        <tr>
+            <td>1. University of Limpopo</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: R200</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>2. Tshwane University of Technology</td>
+            <td>Opening Date: April 1</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: R240</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>3. University of Cape Town</td>
+            <td>Opening Date: April 2</td>
+            <td>Closing Date: 31 July</td>
+            <td>Application fee: R100</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>4. Stellenbosch University</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Will be available soon</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>5. University of the Witwatersrand</td>
+            <td>Opening Date: March (Open)</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Will be available soon</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>6. University of Pretoria</td>
+            <td>Opening Date: April 1</td>
+            <td>Closing Date: 30 June</td>
+            <td>Application fee: R300</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>7. University of South Africa</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Will be available soon</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>8. University of the Western Cape</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Will be available soon</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>9. University of Johannesburg</td>
+            <td>Opening Date: April 1</td>
+            <td>Closing Date: October 31</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>10. North West University</td>
+            <td>Opening Date: April 1</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>11. University of Free State</td>
+            <td>Opening Date: April 1</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>12. Durban University of Technology</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Will be available soon</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>13. Nelson Mandela University</td>
+            <td>Opening Date: April</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: CAO</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>14. Vaal University of Technology</td>
+            <td>Opening Date: June 1</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: R110</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>15. University of Fort Hare</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: R120</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>16. University of Zululand</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>17. University of Venda</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>18. Central University of Technology</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>19. Sol Plaatje University</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>20. Rhodes University</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: R200</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>21. Cape Peninsula University of Technology</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: R300</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>22. Walter Sisulu University</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>23. Mangosuthu University of Technology</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>24. University of KwaZulu-Natal</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>25. University of Mpumalanga</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+        <tr>
+            <td>26. Sefako Makgatho Health Sciences University</td>
+            <td>Opening Date: Will be available soon</td>
+            <td>Closing Date: Will be available soon</td>
+            <td>Application fee: Free</td>
+            <td>Prospectus: Will be available soon</td>
+        </tr>
+    </table>     
+</div>
+
 
     
 

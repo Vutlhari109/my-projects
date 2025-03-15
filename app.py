@@ -17,6 +17,7 @@ from flask_migrate import Migrate
 import hashlib
 import os
 from datetime import datetime
+from flask_mail import Mail, Message
 
 
 
@@ -28,6 +29,17 @@ load_dotenv()
 
 # Flask Configuration
 app = Flask(__name__)
+
+# Initialize Flask-Mail
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # You can change this depending on the provider
+app.config['MAIL_PORT'] = 587  # Port for sending email (587 for TLS)
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_USERNAME'] = 'youremail@gmail.com'  # Your email address
+app.config['MAIL_PASSWORD'] = 'yourpassword'  # Your email password
+app.config['MAIL_DEFAULT_SENDER'] = 'youremail@gmail.com'  # Default sender (use the same as the MAIL_USERNAME)
+
+mail = Mail(app)
 
 SQLALCHEMY_DATABASE_URI = f"postgresql://username:{os.getenv('DB_PASSWORD')}@db-host:5432/dbname"
 
@@ -162,6 +174,23 @@ def uploaded_file(filename):
     static_folder = os.path.join(app.root_path, 'static')  # This points to the "static" folder in your project directory
     return send_from_directory(static_folder, filename)
 
+@app.route('/submit_message', methods=['POST'])
+def send_message():
+    if request.method == 'POST':
+        user_message = request.form.get('message')  # Get message from the form
+        
+        try:
+            # Create the email message
+            msg = Message('New Message from User', recipients=['varsityapplicants@gmail.com'])  # Replace with recipient's email
+            msg.body = user_message  # The content of the email
+
+            # Send the email
+            mail.send(msg)
+
+            return jsonify({"success": True, "message": "Message sent successfully!"})
+        
+        except Exception as e:
+            return jsonify({"success": False, "message": f"Error: {str(e)}"}), 500
 
 @app.before_request
 def log_request():
@@ -490,10 +519,8 @@ def register():
                 logging.error("Error occurred during user registration", exc_info=True)
                 return jsonify({"success": False, "message": str(e)}), 400  # Return JSON response
  
- 
-
 @app.route('/send_message', methods=['POST'])
-def send_message():
+def send_chat_message():  # Renamed function to avoid conflicts
     try:
         user_id = request.form.get('userId')
         message = request.form.get('message')
@@ -534,6 +561,25 @@ def send_message():
     except Exception as e:
         logging.error(f"Error sending message: {str(e)}", exc_info=True)
         return jsonify({"success": False, "message": "An error occurred while sending the message."}), 500
+
+
+@app.route('/submit_message', methods=['POST'])
+def send_email_message():  # Renamed function to avoid conflicts
+    try:
+        user_message = request.form.get('message')  # Get message from the form
+
+        # Create the email message
+        msg = Message('New Message from User', recipients=['varsityapplicants@gmail.com'])  # Replace with recipient's email
+        msg.body = user_message  # The content of the email
+
+        # Send the email
+        mail.send(msg)
+
+        return jsonify({"success": True, "message": "Message sent successfully!"})
+
+    except Exception as e:
+        logging.error(f"Error sending email: {str(e)}", exc_info=True)
+        return jsonify({"success": False, "message": f"Error: {str(e)}"}), 500
 
 
 @app.route('/edit_form')
