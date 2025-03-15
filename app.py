@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template, session, redirect, u
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import flash
 import logging
+from sqlalchemy import Column, Integer, String
 import psycopg2
 from werkzeug.utils import secure_filename
 from flask_cors import CORS  # Allow CORS for Chrome extension
@@ -355,8 +356,6 @@ def delete_message():
         return jsonify({'error': str(e)}), 500
 
 
-
-
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
@@ -418,21 +417,43 @@ def register():
                 file_paths[field] = file_path
 
         hashed_password = generate_password_hash(password)
-        selected_institutions = ",".join(institutions)
+        institutions_string = ",".join(institutions) if institutions else ""
 
         try:
             # Create a new user instance
             new_user = User(
-                username=username, password=hashed_password, first_name=first_name,
-                second_name=second_name, surname=surname, email=email, phone=phone, gender=gender,
-                applicantTitle=applicantTitle, idNumber=idNumber, postalCode=postalCode,
-                province=province, homeLanguage=homeLanguage, matricYear=matricYear,
-                upgrading=upgrading, nsfasBursary=nsfasBursary, bday=bday, address=address,
-                school=school, nesTitle=nesTitle, nextIdNumber=nextIdNumber, nextName=nextName,
-                nextsName=nextsName, nextsurName=nextsurName, nextPhone=nextPhone,
-                nextGender=nextGender, nextEmail=nextEmail, nextBday=nextBday,
-                nextAddress=nextAddress, nextPostalCode=nextPostalCode,
-                whatsapp_number=whatsapp_number, selected_institutions=selected_institutions
+                username=username,
+                password=hashed_password,
+                first_name=first_name,
+                second_name=second_name,
+                surname=surname,
+                email=email,
+                phone=phone,
+                gender=gender,
+                applicantTitle=applicantTitle,
+                idNumber=idNumber,
+                postalCode=postalCode,
+                province=province,
+                homeLanguage=homeLanguage,
+                matricYear=matricYear,
+                upgrading=upgrading,
+                nsfasBursary=nsfasBursary,
+                bday=bday,
+                address=address,
+                school=school,
+                nesTitle=nesTitle,
+                nextIdNumber=nextIdNumber,
+                nextName=nextName,
+                nextsName=nextsName,
+                nextsurName=nextsurName,
+                nextPhone=nextPhone,
+                nextGender=nextGender,
+                nextEmail=nextEmail,
+                nextBday=nextBday,
+                nextAddress=nextAddress,
+                nextPostalCode=nextPostalCode,
+                whatsapp_number=whatsapp_number,
+                institutions=institutions_string
             )
 
             db.session.add(new_user)
@@ -455,11 +476,13 @@ def register():
 
         except Exception as e:
             db.session.rollback()
-            logging.error("Error occurred", exc_info=True)
+            logging.error("Error occurred during user registration", exc_info=True)
             return "Internal Server Error", 500
 
     app.logger.debug('Application form in progress.....')
     return render_template('login.html')
+
+
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
