@@ -199,6 +199,13 @@ def form():
     app.logger.debug('Application form accessed.') 
     return render_template('form.html')
 
+# Other Pages (Extensions)
+@app.route('/institutions')
+def institutions():
+    app.logger.debug('Institutions list guide accessed.') 
+    return render_template('open_in.html')
+
+
 def ensure_upload_folder_exists():
     if not os.path.exists(app.config['STATIC_FOLDER']):
         os.makedirs(app.config['STATIC_FOLDER'])
@@ -391,6 +398,12 @@ def register():
         whatsapp_number = data.get('whatsapp_number')
         institutions = data.getlist('institutions')
         courses = data.getlist('courses')
+        
+          # Check if username already exists
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            return jsonify({"success": False, "message": "Username already exists"}), 400
+
 
         # Ensure the default static folder exists
         os.makedirs(app.config['STATIC_FOLDER'], exist_ok=True)
@@ -469,12 +482,12 @@ def register():
 
             db.session.add(new_documents)
             db.session.commit()
-
-            return redirect(url_for('login'))
+            
+            return jsonify({"success": True, "message": "Account created successfully!"})
 
         except Exception as e:
             db.session.rollback()
-            logging.error("Error occurred during user registration", exc_info=True)
+            logging.error("Error occurred during registration", exc_info=True)
             return "Internal Server Error", 500
 
     app.logger.debug('Application form in progress.....')
