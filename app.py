@@ -10,7 +10,7 @@ import hashlib
 from flask import current_app as app
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import text  # Import text separately
+from sqlalchemy import create_engine, text  # Import text separately
 from flask_migrate import Migrate
 import hashlib
 import os
@@ -38,6 +38,16 @@ def get_db_connection():
         port="5432"
     )
     return connection
+
+
+def drop_column():
+    engine = create_engine('postgresql://post_data_tj0o_user:yHC7TriEVqzfxislKVEuOWhP8OJ16IaB@dpg-cva3m6bqf0us73ceg7f0-a.frankfurt-postgres.render.com/post_data_tj0o')
+    
+    with engine.connect() as connection:
+        connection.execute(text('ALTER TABLE users DROP COLUMN selected_institutions'))
+
+# Call the function to drop the column
+drop_column()
 
 
 # Set up custom logging
@@ -94,7 +104,7 @@ class User(db.Model):
     nextAddress = db.Column(db.String(255))
     nextPostalCode = db.Column(db.String(20))
     nextBday = db.Column(db.Date)
-    institutions = db.Column(db.String(255))
+    institutions = db.Column(db.String(250))
     
     documents = db.relationship('Document', backref='user', lazy=True)
    
