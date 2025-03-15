@@ -178,7 +178,7 @@ def home():
         app.logger.debug('Database connection successful.')
         
         # Check if tables exist in the public schema
-        result = db.session.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+        result = db.session.execute(text("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'"))
         tables = result.fetchall()
 
         # Print the tables in the logs (optional) or return them
@@ -188,7 +188,8 @@ def home():
     except Exception as e:
         app.logger.error(f'Database connection error: {e}')
         return f'Error: {e}'
-
+    
+    
 # Other Pages (Extensions)
 @app.route('/form')
 def form():
